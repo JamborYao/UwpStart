@@ -17,7 +17,7 @@
             <TextBlock FontSize="22" TextAlignment="Center" Text="{Binding ActualHeight,ElementName=stackpanel}"></TextBlock>
         </StackPanel>
         <Grid x:Name="stackpanel" Grid.Row="1">
-            <views:ItemUserControl x:Name="EngineersView"></views:ItemUserControl>
+            <views:ItemUserControl x:Name="EngineersView" ></views:ItemUserControl>
         </Grid>
     </Grid>
 </Page>

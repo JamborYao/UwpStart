@@ -13,24 +13,27 @@
         <ListBox ItemsSource="{Binding}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Height="150">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="200"></RowDefinition>
-                            <RowDefinition Height="300"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="100"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0">
-                            <TextBlock Text="{Binding Path=Name,Mode=OneWay}"></TextBlock>
-                            <TextBlock Text="{Binding Path=Forum,Mode=OneWay}"></TextBlock>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal"  Background="Azure">
+                            <TextBlock Text="{Binding Path=Name,Mode=OneWay}" ></TextBlock>
+                            <TextBlock Text="{Binding Path=Forum,Mode=OneWay}" ></TextBlock>
                         </StackPanel>
-                        <StackPanel Grid.Row="1">
-                            <TextBlock Text="{Binding Path=Solved,Mode=OneWay}"></TextBlock>
-                            <TextBlock Text="{Binding Path=UnSolved,Mode=OneWay}"></TextBlock>
-                            <TextBlock Text="{Binding Path=FollowUp,Mode=OneWay}"></TextBlock>
-                            <TextBlock Text="{Binding Path=Escalate,Mode=OneWay}"></TextBlock>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal"  >
+                            <TextBlock Text="{Binding Path=Solved,Mode=OneWay}" ></TextBlock>
+                            <TextBlock Text="{Binding Path=UnSolved,Mode=OneWay}" ></TextBlock>
+                            <TextBlock Text="{Binding Path=FollowUp,Mode=OneWay}" ></TextBlock>
+                            <TextBlock Text="{Binding Path=Escalate,Mode=OneWay}" ></TextBlock>
                         </StackPanel>
+                       
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button Width="180" Content="Click me" Height="30" Command="{Binding AddCommand}" CommandParameter="add to Solve"></Button>
+
     </Grid>
 </UserControl>
