@@ -12,6 +12,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Collections.ObjectModel;
+using UWPStart.Model;
+using UWPStart.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -22,9 +25,18 @@ namespace UWPStart
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private ViewModel vm;
         public MainPage()
         {
             this.InitializeComponent();
+            vm = new ViewModel();
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            vm.GetEngineers();
+            EngineersView.DataContext = vm.Engineers;   
+            
         }
     }
 }
