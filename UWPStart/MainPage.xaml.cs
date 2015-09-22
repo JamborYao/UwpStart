@@ -29,13 +29,13 @@ namespace UWPStart
         public MainPage()
         {
             this.InitializeComponent();
-            vm = new ViewModel();
+            DataContext = new ViewModel();
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            vm.GetEngineers();
-            EngineersView.DataContext = vm.Engineers;   
+            //vm.GetEngineers();
+            //EngineersView.DataContext = vm.Engineers;   
             
         }
     }
