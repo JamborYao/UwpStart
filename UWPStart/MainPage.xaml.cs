@@ -17,6 +17,7 @@ using UWPStart.Model;
 using UWPStart.ViewModels;
 using System.Net;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -33,7 +34,7 @@ namespace UWPStart
             this.InitializeComponent();
             DataContext = new ViewModel();
 
-            MyHttpGet();
+            //MyHttpGet();
 
         }
 
@@ -57,6 +58,8 @@ namespace UWPStart
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            var currentView = SystemNavigationManager.GetForCurrentView();
+            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             base.OnNavigatedTo(e);
             //vm.GetEngineers();
             //EngineersView.DataContext = vm.Engineers;   
