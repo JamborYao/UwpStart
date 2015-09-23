@@ -15,11 +15,12 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Background="Red">
             <TextBlock FontSize="22" TextAlignment="Center" Text="{Binding ActualHeight,ElementName=stackpanel}"></TextBlock>
-            <Button Width="180" Content="Click me" Height="30"  Command="{Binding AddCommand}" CommandParameter="add to Solve" HorizontalAlignment="Center" ></Button>
-
+            <!--<Button Width="180" Content="Click me" Height="30"  Command="{Binding AddCommand}" CommandParameter="add to Solve" HorizontalAlignment="Center" ></Button>-->
+            <TextBlock x:Name="httpContent"></TextBlock>
         </StackPanel>
         <Grid x:Name="stackpanel" Grid.Row="1">
             <views:ItemUserControl x:Name="EngineersView" ></views:ItemUserControl>
         </Grid>
+       
     </Grid>
 </Page>

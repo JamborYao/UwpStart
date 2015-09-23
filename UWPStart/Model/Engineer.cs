@@ -9,6 +9,7 @@ namespace UWPStart.Model
 {
     public class Engineer : INotifyPropertyChanged
     {
+        public string ID { get; set; }
         public string Name { get; set; }
         private string _forum;
         public string Forum
