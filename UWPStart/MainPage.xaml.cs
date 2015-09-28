@@ -18,6 +18,7 @@ using UWPStart.ViewModels;
 using System.Net;
 using System.Threading.Tasks;
 using Windows.UI.Core;
+using System.Net.Http;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -33,19 +34,19 @@ namespace UWPStart
         {
             this.InitializeComponent();
             DataContext = new ViewModel();
-
-            //MyHttpGet();
-
+             MyHttpGet();
+           
         }
 
         public async void MyHttpGet()
         {
             string url = "http://10.168.172.243:8080/ThreadsManagerService.svc/GetThreadsByNumber?num=1";
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            string baiduUrl = "http://www.baidu.com";
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(baiduUrl);
             request.Method = "GET";
             //request.UseDefaultCredentials = false;
-            request.Credentials = CredentialCache.DefaultNetworkCredentials;
-            request.Credentials = new NetworkCredential("v-jayao", "Change!13", "fareast");
+            //request.Credentials = CredentialCache.DefaultNetworkCredentials;
+            //request.Credentials = new NetworkCredential("v-jayao", "Change!13", "fareast.corp.microsoft.com");
 
             var response = request.GetResponseAsync();
             await response;
@@ -53,7 +54,10 @@ namespace UWPStart
             StreamReader reader = new StreamReader(stream);
             var content = reader.ReadToEnd();
             httpContent.Text = content;
-          
+            outPutView.NavigateToString(content);
+
+            
+
 
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -65,5 +69,8 @@ namespace UWPStart
             //EngineersView.DataContext = vm.Engineers;   
 
         }
+
+       
     }
+
 }
