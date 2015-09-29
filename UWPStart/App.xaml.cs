@@ -113,5 +113,30 @@ namespace UWPStart
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Button 1 works!");
+            //Do work for your application here.
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+          //  MessageBox.Show("Button 2 works!");
+            //Do work for your application here.
+        }
+
+        private void MenuItem1_Click(object sender, EventArgs e)
+        {
+          //  MessageBox.Show("Menu item 1 works!");
+            //Do work for your application here.
+        }
+
+        private void MenuItem2_Click(object sender, EventArgs e)
+        {
+            
+           // MessageBox.Show("Menu item 2 works!");
+            //Do work for your application here.
+        }
+
     }
 }
