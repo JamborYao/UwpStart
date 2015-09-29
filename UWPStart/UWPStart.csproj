@@ -104,6 +104,9 @@
     </Compile>
     <Compile Include="Model\Engineer.cs" />
     <Compile Include="Model\Item.cs" />
+    <Compile Include="Pages\CSDNTool.xaml.cs">
+      <DependentUpon>CSDNTool.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FlayOutPage.xaml.cs">
       <DependentUpon>FlayOutPage.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\CSDNTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\FlayOutPage.xaml">
       <SubType>Designer</SubType>
