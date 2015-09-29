@@ -84,7 +84,7 @@ namespace UWPStart
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(Pages.BingMap), e.Arguments);
+                rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();
@@ -113,30 +113,7 @@ namespace UWPStart
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            //MessageBox.Show("Button 1 works!");
-            //Do work for your application here.
-        }
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-          //  MessageBox.Show("Button 2 works!");
-            //Do work for your application here.
-        }
-
-        private void MenuItem1_Click(object sender, EventArgs e)
-        {
-          //  MessageBox.Show("Menu item 1 works!");
-            //Do work for your application here.
-        }
-
-        private void MenuItem2_Click(object sender, EventArgs e)
-        {
-            
-           // MessageBox.Show("Menu item 2 works!");
-            //Do work for your application here.
-        }
+       
 
     }
 }
