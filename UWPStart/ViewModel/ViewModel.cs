@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using Windows.UI.Popups;
+using CSDNServices;
 
 namespace UWPStart.ViewModels
 {
@@ -30,7 +31,7 @@ namespace UWPStart.ViewModels
             IEnumerable<Engineer> readTask = await App.MobileService.GetTable<Engineer>().ReadAsync();
             ObservableCollection<Engineer> engineer = new ObservableCollection<Engineer>(readTask);
             Engineers.Add(engineer[0]);
-            Engineers.Add(new Engineer { Name = "karen", UnSolved = 10, Solved = 10, FollowUp = 10, Escalate = 10 });
+            Engineers.Add(new Engineer { DisplayName = "karen"});
         }
 
 
@@ -38,8 +39,8 @@ namespace UWPStart.ViewModels
         public void GetEngineers()
         {
             ObservableCollection<Engineer> list = new ObservableCollection<Engineer>();
-            list.Add(new Engineer { Name = "one", UnSolved = 10, Solved = 10, FollowUp = 10, Escalate = 10 });
-            list.Add(new Engineer { Name = "two", UnSolved = 10, Solved = 10, FollowUp = 10, Escalate = 10 });
+            list.Add(new Engineer { DisplayName = "one", });
+            list.Add(new Engineer { DisplayName = "two" });
 
             Engineers = list;
         }
@@ -50,10 +51,10 @@ namespace UWPStart.ViewModels
         {
             if (Engineers != null)
             {
-                Engineers.Add(new Engineer { Name = "jambor", UnSolved = 10, Solved = 10, FollowUp = 10, Escalate = 10 });
+                Engineers.Add(new Engineer { DisplayName = "jambor" });
             }
             Item item = new Item { Text = "Awesome item" };
-            Engineer insertEntity = new Engineer { ID = "1", Forum = "UWP", Name = "jambor", UnSolved = 10, Solved = 10, FollowUp = 10, Escalate = 10 };
+            Engineer insertEntity = new Engineer { DisplayName = "1" };
             await App.MobileService.GetTable<Engineer>().InsertAsync(insertEntity);
             var dialog = new MessageDialog("add successful");
             await dialog.ShowAsync();

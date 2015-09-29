@@ -12,25 +12,19 @@ namespace CSDNServices
     using System;
     using System.Collections.Generic;
     
-    public partial class Engineer
+    public partial class CSSAction
     {
-        public Engineer()
+        public CSSAction()
         {
             this.Threads = new HashSet<Thread>();
-            this.Threads1 = new HashSet<Thread>();
         }
     
         public int Id { get; set; }
-        public string Alias { get; set; }
-        public Nullable<int> TeamID { get; set; }
-        public Nullable<int> SubTeamID { get; set; }
-        public string EngineerName { get; set; }
-        public string DisplayName { get; set; }
-        public string RegisterMail { get; set; }
-        public Nullable<int> Role { get; set; }
+        public string CSSActionName { get; set; }
+        public Nullable<bool> Enable { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<int> CreateBy { get; set; }
     
-        public virtual Team Team { get; set; }
         public virtual ICollection<Thread> Threads { get; set; }
-        public virtual ICollection<Thread> Threads1 { get; set; }
     }
 }

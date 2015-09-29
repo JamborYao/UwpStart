@@ -99,13 +99,24 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\HttpHelper.cs" />
     <Compile Include="Common\NavigationPage.cs" />
     <Compile Include="Common\ValueConvert.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\CSSAction.cs" />
     <Compile Include="Model\Engineer.cs" />
+    <Compile Include="Model\Forum.cs" />
+    <Compile Include="Model\IssueType.cs" />
     <Compile Include="Model\Item.cs" />
+    <Compile Include="Model\Team.cs" />
+    <Compile Include="Model\TechCategory.cs" />
+    <Compile Include="Model\Thread.cs" />
+    <Compile Include="Model\ThreadDetail.cs" />
+    <Compile Include="Model\UT.cs" />
+    <Compile Include="Model\UTDetail.cs" />
     <Compile Include="Pages\CSDNTool.xaml.cs">
       <DependentUpon>CSDNTool.xaml</DependentUpon>
     </Compile>
@@ -125,6 +136,9 @@
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\ItemUserControl.xaml.cs">
       <DependentUpon>ItemUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Threads.xaml.cs">
+      <DependentUpon>Threads.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ItemUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Threads.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

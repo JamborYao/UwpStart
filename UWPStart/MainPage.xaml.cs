@@ -34,32 +34,11 @@ namespace UWPStart
         {
             this.InitializeComponent();
             DataContext = new ViewModel();
-             MyHttpGet();
+            
            
         }
 
-        public async void MyHttpGet()
-        {
-            string url = "http://10.168.172.243:8080/ThreadsManagerService.svc/GetThreadsByNumber?num=1";
-            string baiduUrl = "http://www.baidu.com";
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(baiduUrl);
-            request.Method = "GET";
-            //request.UseDefaultCredentials = false;
-            //request.Credentials = CredentialCache.DefaultNetworkCredentials;
-            //request.Credentials = new NetworkCredential("v-jayao", "Change!13", "fareast.corp.microsoft.com");
-
-            var response = request.GetResponseAsync();
-            await response;
-            Stream stream = response.Result.GetResponseStream();
-            StreamReader reader = new StreamReader(stream);
-            var content = reader.ReadToEnd();
-            httpContent.Text = content;
-            outPutView.NavigateToString(content);
-
-            
-
-
-        }
+      
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var currentView = SystemNavigationManager.GetForCurrentView();
