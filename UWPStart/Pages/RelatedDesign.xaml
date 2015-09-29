@@ -9,17 +9,22 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="15"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" x:Name="fullPanel">
             <Button Content="Back" x:Name="full_back" Click="full_back_Click"></Button>
-            <TextBlock Margin="10, 0, 0, 0">这是一个大标题</TextBlock>
+            <TextBlock Margin="10, 0, 0, 0">this is a primary title</TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="0" Orientation="Horizontal" x:Name="detailPanel" >
             <Button x:Name="detail_back" Content="Back" Click="detail_back_Click"></Button>
-            <TextBlock Margin="10, 0, 0, 0">这是一个副标题</TextBlock>
+            <TextBlock Margin="10, 0, 0, 0">this is the secondly title</TextBlock>          
         </StackPanel>
-        <RelativePanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 5 0 0">
+                      <Line Stroke="DeepSkyBlue" StrokeThickness="10" X2="400" StrokeDashArray="1,2,4,4"/>
+        </StackPanel>
+
+        <RelativePanel Grid.Row="2">
             <ListView x:Name="left" IsItemClickEnabled="True" ItemClick="left_ItemClick" SelectedIndex="-1">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -34,7 +39,7 @@
             </ListView>
             <Grid x:Name="right">
                 <StackPanel>
-                    <TextBlock>队长，别开枪。。</TextBlock>
+                    <TextBlock>my detailed content</TextBlock>
                     <TextBlock  >
                         <Run Text="Item:"></Run>
                         <Run Text="{Binding SelectedItem, ElementName=left}" Foreground="Red"></Run>
