@@ -1,0 +1,76 @@
+﻿<Page
+    x:Class="UWPStart.Pages.RelatedDesign"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPStart.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" x:Name="fullPanel">
+            <Button Content="Back" x:Name="full_back" Click="full_back_Click"></Button>
+            <TextBlock Margin="10, 0, 0, 0">这是一个大标题</TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" x:Name="detailPanel" >
+            <Button x:Name="detail_back" Content="Back" Click="detail_back_Click"></Button>
+            <TextBlock Margin="10, 0, 0, 0">这是一个副标题</TextBlock>
+        </StackPanel>
+        <RelativePanel Grid.Row="1">
+            <ListView x:Name="left" IsItemClickEnabled="True" ItemClick="left_ItemClick" SelectedIndex="-1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="10">
+                            <TextBlock>
+                                <Run Text="Item: "></Run>
+                                <Run Text="{Binding}"></Run>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid x:Name="right">
+                <StackPanel>
+                    <TextBlock>队长，别开枪。。</TextBlock>
+                    <TextBlock  >
+                        <Run Text="Item:"></Run>
+                        <Run Text="{Binding SelectedItem, ElementName=left}" Foreground="Red"></Run>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </RelativePanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="windowSize">
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="501"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="detailPanel.Visibility" Value="Collapsed"></Setter>
+                        <Setter Target="fullPanel.Visibility" Value="Visible"></Setter>
+                        <Setter Target="right.Visibility" Value="Visible"></Setter>
+                        <Setter Target="right.(RelativePanel.RightOf)" Value="left"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="detailPanel.Visibility" Value="Visible"></Setter>
+                        <Setter Target="fullPanel.Visibility" Value="Collapsed"></Setter>
+                        <Setter Target="right.Visibility" Value="Collapsed"></Setter>
+                        <Setter Target="left.Visibility" Value="Visible"></Setter>
+                        <Setter Target="left.(RelativePanel.AlignRightWithPanel)" Value="True"></Setter>
+                        <Setter Target="left.(RelativePanel.AlignBottomWithPanel)" Value="True"></Setter>
+                        <Setter Target="left.(RelativePanel.AlignLeftWithPanel)" Value="True"></Setter>
+                        <Setter Target="left.(RelativePanel.AlignTopWithPanel)" Value="True"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>
