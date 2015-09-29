@@ -6,10 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-  
+ xmlns:common="using:UWPStart.Common"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
+    <UserControl.Resources>
+        <common:ValueConvert x:Key="addString"></common:ValueConvert>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -35,7 +37,7 @@
                             <TextBlock Text="{Binding Path=Forum,Mode=OneWay}" ></TextBlock>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Orientation="Horizontal"  >
-                            <TextBlock Text="{Binding Path=Solved,Mode=OneWay}" ></TextBlock>
+                            <TextBlock Text="{Binding Path=Solved,Mode=OneWay,Converter={StaticResource addString},ConverterParameter='1000'}" ></TextBlock>
                             <TextBlock Text="{Binding Path=UnSolved,Mode=OneWay}" ></TextBlock>
                             <TextBlock Text="{Binding Path=FollowUp,Mode=OneWay}" ></TextBlock>
                             <TextBlock Text="{Binding Path=Escalate,Mode=OneWay}" ></TextBlock>
