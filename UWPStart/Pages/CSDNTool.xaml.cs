@@ -27,6 +27,7 @@ namespace UWPStart.Pages
         {
             this.InitializeComponent();
             this.Loaded += CSDNTool_Loaded;
+            
         }
 
         private async void CSDNTool_Loaded(object sender, RoutedEventArgs e)
