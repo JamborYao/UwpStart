@@ -21,9 +21,9 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="UWPStart.Common.NotifyBackground">
+        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.NotificationBackground">
           <BackgroundTasks>
-            <Task Type="deviceUse" />
+            <Task Type="systemEvent" />
           </BackgroundTasks>
         </Extension>
       </Extensions>

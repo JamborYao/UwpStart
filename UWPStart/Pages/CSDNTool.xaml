@@ -21,6 +21,9 @@
         <AppBar x:Name="appBar" IsSticky="True">
             <StackPanel Name="buttonPanel" Orientation="Horizontal" HorizontalAlignment="Left">
                 <AppBarButton Icon="Play" Label="SymbolIcon" />
+                <AppBarButton x:Name="RegisterButton" Content="Register" Click="RegisterBackgroundTask" HorizontalAlignment="Left"/>
+                <AppBarButton x:Name="UnregisterButton" Content="Unregister" Click="UnregisterBackgroundTask"  HorizontalAlignment="Left"/>
+
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>
