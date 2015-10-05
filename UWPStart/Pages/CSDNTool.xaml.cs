@@ -9,6 +9,7 @@ using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -16,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,29 +32,29 @@ namespace UWPStart.Pages
         {
             this.InitializeComponent();
             //this.Loaded += CSDNTool_Loaded;
-             RegisterTask();
-          
+            RegisterTask();
+
 
         }
-        private  void RegisterBackgroundTask(object sender, RoutedEventArgs e)
+        private void RegisterBackgroundTask(object sender, RoutedEventArgs e)
         {
             RegisterBackgroundTask("UWPStart.Common.NotifyBackground",
                                                                  "TimeTaskNew",
                                                                  new SystemTrigger(SystemTriggerType.TimeZoneChange, false),
                                                                  null);
-           
+
         }
         private async void CSDNTool_Loaded(object sender, RoutedEventArgs e)
         {
-           string x= await Common.HttpHelper.MyHttpGet(); 
+            string x = await Common.HttpHelper.MyHttpGet();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var currentView = SystemNavigationManager.GetForCurrentView();
-            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible; 
+            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
-           // Myreg();
+            // Myreg();
 
             base.OnNavigatedTo(e);
         }
@@ -60,12 +62,12 @@ namespace UWPStart.Pages
         {
             foreach (var cur in BackgroundTaskRegistration.AllTasks)
             {
-                
-                    cur.Value.Unregister(true);
-               
+
+                cur.Value.Unregister(true);
+
             }
         }
-        public static  void RegisterBackgroundTask(String taskEntryPoint, String name, IBackgroundTrigger trigger, IBackgroundCondition condition)
+        public static void RegisterBackgroundTask(String taskEntryPoint, String name, IBackgroundTrigger trigger, IBackgroundCondition condition)
         {
             //if (TaskRequiresBackgroundAccess(name))
             //{
@@ -91,12 +93,12 @@ namespace UWPStart.Pages
 
             BackgroundTaskRegistration task = builder.Register();
 
-         
+
 
             //
             // Remove previous completion status from local settings.
             //
-           
+
         }
 
         private static bool TaskRequiresBackgroundAccess(string name)
@@ -126,7 +128,7 @@ namespace UWPStart.Pages
                 };
                 taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.InternetAvailable, false));
                 BackgroundTaskRegistration task = taskBuilder.Register();
-                
+
                 task.Completed += Task_Completed;
                 task.Progress += Task_Progress;
             }
@@ -134,7 +136,7 @@ namespace UWPStart.Pages
 
         private void Task_Progress(BackgroundTaskRegistration sender, BackgroundTaskProgressEventArgs args)
         {
-            Debug.WriteLine("my task "+ args.Progress+"%"+"downloaded!");
+            Debug.WriteLine("my task " + args.Progress + "%" + "downloaded!");
         }
 
         private void Task_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
@@ -143,6 +145,54 @@ namespace UWPStart.Pages
             //var setting = Windows.Storage.ApplicationData.Current.LocalSettings;
             //var key = sender.TaskId.ToString();
             //setting.Values["taskID"] = key;
+        }
+
+        private void updateTitle_Click(object sender, RoutedEventArgs e)
+        {
+            string badgeXmlString = "<tile><visual><binding template = \"TileSmall\" ><text> Small </text>" +
+     "</binding><binding template =\"TileMedium\"><text> Medium </text></binding><binding template = \"TileWide\" >" +
+        " <text> Wide </text></binding><binding template = \"TileLarge\" ><text> Large </text></binding></visual></tile>";
+
+            string tileXmlString =
+              "<tile>"
+              + "<visual version='3'>"
+              + "<binding template='TileSquare150x150Text04' fallback='TileSquareText04'>"
+              + "<text id='1'>Hello World! My very own tile notification</text>"
+              + "</binding>"
+              + "<binding template='TileWide310x150Text03' fallback='TileWideText03'>"
+              + "<text id='1'>Hello World! My very own tile notification</text>"
+              + "</binding>"
+              + "<binding template='TileSquare310x310Text09'>"
+              + "<text id='1'>Hello World! My very own tile notification</text>"
+              + "</binding>"
+              + "</visual>"
+              + "</tile>";
+
+            //  string badgeXmlString = "<badge value='" + textBox.Text + "'/>";
+            Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
+            try
+            {
+                // Create a DOM.
+                badgeDOM.LoadXml(tileXmlString);
+
+                // Load the xml string into the DOM, catching any invalid xml characters.
+                //BadgeNotification badge = new BadgeNotification(badgeDOM);
+
+                //// Create a badge notification and send it to the application’s tile.
+                //BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(badge);
+
+                TileNotification tile = new TileNotification(badgeDOM);
+                TileUpdateManager.CreateTileUpdaterForApplication().Update(tile);
+
+
+                //OutputTextBlock.Text = badgeDOM.GetXml();
+                //rootPage.NotifyUser("Badge sent", NotifyType.StatusMessage);
+            }
+            catch (Exception)
+            {
+                //OutputTextBlock.Text = string.Empty;
+                //rootPage.NotifyUser("Error loading the xml, check for invalid characters in the input", NotifyType.ErrorMessage);
+            }
         }
     }
 }

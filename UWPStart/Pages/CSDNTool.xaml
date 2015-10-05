@@ -14,7 +14,9 @@
     </Page.Background>
 
     <Grid Opacity="0.5" Background="#FF2E3691">
-        <Grid Margin="10,70,10,74" Background="#FF0F7878" BorderThickness="1" CornerRadius="5"/>
+        <Grid Margin="10,70,10,74" Background="#FF0F7878" BorderThickness="1" CornerRadius="5">
+            <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="11,11,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Height="46" Width="111"/>
+        </Grid>
         <TextBlock x:Name="toolTitle" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="CSDN Tool" VerticalAlignment="Top" Height="60" Width="215" Foreground="White" FontFamily="Times New Roman" FontSize="29.333"/>
     </Grid>
     <Page.BottomAppBar>
@@ -23,7 +25,7 @@
                 <AppBarButton Icon="Play" Label="SymbolIcon" />
                 <AppBarButton x:Name="RegisterButton" Content="Register" Click="RegisterBackgroundTask" HorizontalAlignment="Left"/>
                 <AppBarButton x:Name="UnregisterButton" Content="Unregister" Click="UnregisterBackgroundTask"  HorizontalAlignment="Left"/>
-
+                <AppBarButton x:Name="updateTitle" Content="Update titme"   HorizontalAlignment="Left" Click="updateTitle_Click"/>
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>
