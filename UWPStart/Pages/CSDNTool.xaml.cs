@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -123,17 +124,25 @@ namespace UWPStart.Pages
                     Name = myRegister,
                     TaskEntryPoint = "Tasks.NotificationBackground"
                 };
-                taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.TimeZoneChange, false));
+                taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.InternetAvailable, false));
                 BackgroundTaskRegistration task = taskBuilder.Register();
-               // task.Completed += Task_Completed; ;
+                
+                task.Completed += Task_Completed;
+                task.Progress += Task_Progress;
             }
+        }
+
+        private void Task_Progress(BackgroundTaskRegistration sender, BackgroundTaskProgressEventArgs args)
+        {
+            Debug.WriteLine("my task "+ args.Progress+"%"+"downloaded!");
         }
 
         private void Task_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
         {
-            var setting = Windows.Storage.ApplicationData.Current.LocalSettings;
-            var key = sender.TaskId.ToString();
-            setting.Values["taskID"] = key;
+            Debug.WriteLine("my task complete");
+            //var setting = Windows.Storage.ApplicationData.Current.LocalSettings;
+            //var key = sender.TaskId.ToString();
+            //setting.Values["taskID"] = key;
         }
     }
 }
