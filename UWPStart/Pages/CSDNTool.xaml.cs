@@ -44,7 +44,7 @@ namespace UWPStart.Pages
         }
         private async void CSDNTool_Loaded(object sender, RoutedEventArgs e)
         {
-           string x= await Common.HttpHelper.MyHttpGet();
+           string x= await Common.HttpHelper.MyHttpGet(); 
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
