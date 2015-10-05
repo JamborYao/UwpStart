@@ -50,7 +50,7 @@ namespace UWPStart.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var currentView = SystemNavigationManager.GetForCurrentView();
-            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible; 
 
            // Myreg();
 
