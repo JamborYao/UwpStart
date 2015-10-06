@@ -28,7 +28,6 @@
           <BackgroundTasks>
             <Task Type="systemEvent" />
             <Task Type="pushNotification" />
-            <Task Type="deviceUse" />
           </BackgroundTasks>
         </Extension>
       </Extensions>

@@ -33,8 +33,6 @@ namespace Tasks
             {
                 string arguments = details.Argument;
                 var userInput = details.UserInput;
-
-                //Perform tasks;
             }
 
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
