@@ -23,9 +23,10 @@
         <AppBar x:Name="appBar" IsSticky="True">
             <StackPanel Name="buttonPanel" Orientation="Horizontal" HorizontalAlignment="Left">
                 <AppBarButton Icon="Play" Label="SymbolIcon" />
-                <AppBarButton x:Name="RegisterButton" Content="Register" Click="RegisterBackgroundTask" HorizontalAlignment="Left"/>
-                <AppBarButton x:Name="UnregisterButton" Content="Unregister" Click="UnregisterBackgroundTask"  HorizontalAlignment="Left"/>
-                <AppBarButton x:Name="updateTitle" Content="Update titme"   HorizontalAlignment="Left" Click="updateTitle_Click"/>
+                <AppBarButton Icon="Target" x:Name="RegisterButton" Label="Register" Click="RegisterBackgroundTask" HorizontalAlignment="Left"/>
+                <AppBarButton Icon="Remove" x:Name="UnregisterButton" Label="Unregister" Click="UnregisterBackgroundTask"  HorizontalAlignment="Left"/>
+                <AppBarButton Icon="Upload"  x:Name="updateTitle" Label="Update titme"   HorizontalAlignment="Left" Click="updateTitle_Click"/>
+                <AppBarButton Icon="Send"  x:Name="sendToast" Label="send toast"   HorizontalAlignment="Left" Click="sendToast_Click"/>
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>

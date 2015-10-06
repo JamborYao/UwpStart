@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Storage;
 using Windows.System.Threading;
+using Windows.UI.Notifications;
 
 namespace Tasks
 {
@@ -24,6 +25,18 @@ namespace Tasks
         //
         public void Run(IBackgroundTaskInstance taskInstance)
         {
+
+        
+
+            var details = taskInstance.TriggerDetails as ToastNotificationActionTriggerDetail;
+            if (details != null)
+            {
+                string arguments = details.Argument;
+                var userInput = details.UserInput;
+
+                //Perform tasks;
+            }
+
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
 
             //

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
+using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -126,7 +127,8 @@ namespace UWPStart.Pages
                     Name = myRegister,
                     TaskEntryPoint = "Tasks.NotificationBackground"
                 };
-                taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.InternetAvailable, false));
+                //taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.NetworkStateChange, false));
+                taskBuilder.SetTrigger(new ToastNotificationActionTrigger());
                 BackgroundTaskRegistration task = taskBuilder.Register();
 
                 task.Completed += Task_Completed;
@@ -148,32 +150,14 @@ namespace UWPStart.Pages
         }
 
         private void updateTitle_Click(object sender, RoutedEventArgs e)
-        {
-            string badgeXmlString = "<tile><visual><binding template = \"TileSmall\" ><text> Small </text>" +
-     "</binding><binding template =\"TileMedium\"><text> Medium </text></binding><binding template = \"TileWide\" >" +
-        " <text> Wide </text></binding><binding template = \"TileLarge\" ><text> Large </text></binding></visual></tile>";
-
-            string tileXmlString =
-              "<tile>"
-              + "<visual version='3'>"
-              + "<binding template='TileSquare150x150Text04' fallback='TileSquareText04'>"
-              + "<text id='1'>Hello World! My very own tile notification</text>"
-              + "</binding>"
-              + "<binding template='TileWide310x150Text03' fallback='TileWideText03'>"
-              + "<text id='1'>Hello World! My very own tile notification</text>"
-              + "</binding>"
-              + "<binding template='TileSquare310x310Text09'>"
-              + "<text id='1'>Hello World! My very own tile notification</text>"
-              + "</binding>"
-              + "</visual>"
-              + "</tile>";
-
+        {                     
+            // ToastNotification 
             //  string badgeXmlString = "<badge value='" + textBox.Text + "'/>";
             Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
             try
             {
                 // Create a DOM.
-                badgeDOM.LoadXml(tileXmlString);
+                badgeDOM.LoadXml(Common.NotificationXML.TileXml);
 
                 // Load the xml string into the DOM, catching any invalid xml characters.
                 //BadgeNotification badge = new BadgeNotification(badgeDOM);
@@ -194,5 +178,31 @@ namespace UWPStart.Pages
                 //rootPage.NotifyUser("Error loading the xml, check for invalid characters in the input", NotifyType.ErrorMessage);
             }
         }
+
+        private void sendToast_Click(object sender, RoutedEventArgs e)
+        {
+            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);           
+            // Fill in the text elements
+            XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
+            for (int i = 0; i < stringElements.Length; i++)
+            {
+                stringElements[i].AppendChild(toastXml.CreateTextNode("Line " + i));
+            }
+            Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
+            // Specify the absolute path to an image
+            // String imagePath = "file:///" + Path.GetFullPath("toastImageAndText.png");
+            //XmlNodeList imageElements = toastXml.GetElementsByTagName("image");
+            badgeDOM.LoadXml(Common.NotificationXML.ToastWithActionXML);
+
+            ToastNotification toast = new ToastNotification(badgeDOM);
+           // toast.Activated += Toast_Activated;
+
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
+        }
+
+        //private void Toast_Activated(ToastNotification sender, object args)
+        //{
+        //    //throw new NotImplementedException();
+        //}
     }
 }

@@ -93,6 +93,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="StoreLogo.png" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +102,7 @@
     </Compile>
     <Compile Include="Common\HttpHelper.cs" />
     <Compile Include="Common\NavigationPage.cs" />
-    <Compile Include="Common\NotifyBackground.cs" />
+    <Compile Include="Common\NotificationXML.cs" />
     <Compile Include="Common\ValueConvert.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

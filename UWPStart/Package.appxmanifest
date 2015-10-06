@@ -27,6 +27,8 @@
         <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.NotificationBackground">
           <BackgroundTasks>
             <Task Type="systemEvent" />
+            <Task Type="pushNotification" />
+            <Task Type="deviceUse" />
           </BackgroundTasks>
         </Extension>
       </Extensions>
