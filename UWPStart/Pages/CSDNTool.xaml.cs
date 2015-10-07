@@ -18,6 +18,12 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
+
+using System.Collections.ObjectModel;
+using CSDNServices;
+using Windows.UI.ViewManagement;
+using Windows.Graphics.Display;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -29,43 +35,51 @@ namespace UWPStart.Pages
     /// </summary>
     public sealed partial class CSDNTool : Page
     {
+        private ObservableCollection<ThreadsDetail> csdnThreads;
+        private DateTime StartDate;
+        private DateTime EndDate;
+
+        private bool internetAviable = false;
         public CSDNTool()
         {
             this.InitializeComponent();
-            //this.Loaded += CSDNTool_Loaded;
+            this.Loaded += CSDNTool_Loaded;
             RegisterTask();
-
+            // ObservableCollection<ThreadsDetail> csdnThreads = new ObservableCollection<ThreadsDetail>();
+            //   csdnThreads.Add(new ThreadsDetail { ThreadTitle = "just a test", Labors = 50, CSSActionName = "test");
 
         }
         private void RegisterBackgroundTask(object sender, RoutedEventArgs e)
         {
             RegisterBackgroundTask("UWPStart.Common.NotifyBackground",
-                                                                 "TimeTaskNew",
+                "TimeTaskNew",
                                                                  new SystemTrigger(SystemTriggerType.TimeZoneChange, false),
                                                                  null);
 
         }
         private async void CSDNTool_Loaded(object sender, RoutedEventArgs e)
         {
-            string x = await Common.HttpHelper.MyHttpGet();
+            startDate.Date=(new DateTimeOffset( DateTime.Now));         
+            endDate.Date=(new DateTimeOffset(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)));
+            DateTimeOffset QueryStart = (DateTimeOffset)startDate.Date;
+            StartDate = QueryStart.DateTime;
+            DateTimeOffset QueryEnd = (DateTimeOffset)endDate.Date;
+            EndDate = QueryEnd.DateTime;
+
+            string x = await Common.HttpHelper.HttpClientGetThreads(null,null);
+            if (!string.IsNullOrEmpty(x))
+            {
+                internetAviable = true;
+                csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
+                viewThreads.ItemsSource = csdnThreads;
+            }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var currentView = SystemNavigationManager.GetForCurrentView();
-            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-
-            // Myreg();
-
-            base.OnNavigatedTo(e);
-        }
         private void UnregisterBackgroundTask(object sender, RoutedEventArgs e)
         {
             foreach (var cur in BackgroundTaskRegistration.AllTasks)
             {
-
                 cur.Value.Unregister(true);
-
             }
         }
         public static void RegisterBackgroundTask(String taskEntryPoint, String name, IBackgroundTrigger trigger, IBackgroundCondition condition)
@@ -110,7 +124,7 @@ namespace UWPStart.Pages
         public void RegisterTask()
         {
             bool taskRegister = false;
-            string myRegister = "MyTimeTask1";
+            string myRegister = "MyTimeTask2";
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
                 //if (task.Value.Name == myRegister)
@@ -128,11 +142,11 @@ namespace UWPStart.Pages
                     TaskEntryPoint = "Tasks.NotificationBackground"
                 };
                 //taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.NetworkStateChange, false));
-                taskBuilder.SetTrigger(new ToastNotificationActionTrigger());
+                taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.TimeZoneChange, false));
                 BackgroundTaskRegistration task = taskBuilder.Register();
 
                 task.Completed += Task_Completed;
-                task.Progress += Task_Progress;
+                // task.Progress += Task_Progress;
             }
         }
 
@@ -144,13 +158,34 @@ namespace UWPStart.Pages
         private void Task_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
         {
             Debug.WriteLine("my task complete");
-            //var setting = Windows.Storage.ApplicationData.Current.LocalSettings;
-            //var key = sender.TaskId.ToString();
-            //setting.Values["taskID"] = key;
-        }
+            internetAviable = internetAviable == true ? false : true;          
+            UpdateUI();
 
+        }
+        public async void UpdateUI()
+        {
+            if (internetAviable == false)
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    csdnThreads.Clear();
+                    warningText.Visibility = Visibility;
+                });
+            }
+            else
+            {                
+                string x = await Common.HttpHelper.HttpClientGetThreads(StartDate.ToString(), EndDate.ToString());
+                internetAviable = true;
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
+                    viewThreads.ItemsSource = csdnThreads;
+                    warningText.Visibility = Visibility.Collapsed;
+                });
+            }
+        }
         private void updateTitle_Click(object sender, RoutedEventArgs e)
-        {                     
+        {
             // ToastNotification 
             //  string badgeXmlString = "<badge value='" + textBox.Text + "'/>";
             Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
@@ -181,7 +216,7 @@ namespace UWPStart.Pages
 
         private void sendToast_Click(object sender, RoutedEventArgs e)
         {
-            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);           
+            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);
             // Fill in the text elements
             XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
             for (int i = 0; i < stringElements.Length; i++)
@@ -195,9 +230,54 @@ namespace UWPStart.Pages
             badgeDOM.LoadXml(Common.NotificationXML.ToastWithActionXML);
 
             ToastNotification toast = new ToastNotification(badgeDOM);
-           // toast.Activated += Toast_Activated;
+            // toast.Activated += Toast_Activated;
 
             ToastNotificationManager.CreateToastNotifier().Show(toast);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var currentView = SystemNavigationManager.GetForCurrentView();
+            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+
+            // Myreg();
+
+            base.OnNavigatedTo(e);
+        }
+
+        private void viewThreads_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Debug.WriteLine("item clicked!");
+
+        }
+
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout(sender as FrameworkElement);
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {                   
+            DateTimeOffset QueryStart =(DateTimeOffset) startDate.Date;           
+            StartDate = QueryStart.DateTime;
+            DateTimeOffset QueryEnd = (DateTimeOffset)endDate.Date;
+            EndDate = QueryEnd.DateTime;
+            string x = await Common.HttpHelper.HttpClientGetThreads(StartDate.ToString(), EndDate.ToString());
+            csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
+            viewThreads.ItemsSource = csdnThreads;
+        }
+
+        
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            //FlyoutBase.ShowAttachedFlyout(sender as FrameworkElement);
+        }
+
+        private void viewThreads_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
+            var heigh = bounds.Height - 130 - 80;
+            viewThreads.Height = heigh;         
         }
 
         //private void Toast_Activated(ToastNotification sender, object args)

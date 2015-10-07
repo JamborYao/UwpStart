@@ -5,24 +5,110 @@
     xmlns:local="using:UWPStart.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Opacity="0.5">
+    mc:Ignorable="d" 
+    >
+    <Page.Resources>
+
+        <!--
+            通过资源的方式定义 flyout 的样式和内容
+        -->
+        <Flyout x:Key="SharedFlyout" Placement="Right">
+            <StackPanel>
+                <TextBlock Text="我是 Flyout 中的内容" Foreground="White" FontSize="24" />
+            </StackPanel>
+            <!--
+                FlyoutPresenterStyle - 用于定义 flyout 的显示样式
+            -->
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="ScrollViewer.ZoomMode" Value="Enabled"/>
+                    <Setter Property="Background" Value="Blue"/>
+                    <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="BorderThickness" Value="10"/>
+                    <Setter Property="MinHeight" Value="300"/>
+                    <Setter Property="MinWidth" Value="300"/>
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+        </Flyout>
+
+    </Page.Resources>
     <Page.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Black" Offset="0"/>
             <GradientStop Color="#D141AADA" Offset="1"/>
         </LinearGradientBrush>
     </Page.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" x:Name="toolTitle" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="CSDN Tool" VerticalAlignment="Top" Height="60" Width="215" Foreground="White" FontFamily="Times New Roman" FontSize="29.333"/>
+        <TextBox HorizontalAlignment="Right" x:Name="textBox"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="46" Width="111" Visibility="Collapsed"/>
 
-    <Grid Opacity="0.5" Background="#FF2E3691">
-        <Grid Margin="10,70,10,74" Background="#FF0F7878" BorderThickness="1" CornerRadius="5">
-            <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="11,11,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Height="46" Width="111"/>
+        <AppBarButton Icon="Find" HorizontalAlignment="Right" Foreground="White"></AppBarButton>
+        <Grid Grid.Row="1" Margin="10,10,10,10" Background="#FF0F7878" BorderThickness="1" CornerRadius="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
+                <TextBlock x:Name="startDateText"  VerticalAlignment="Center" Text="Start Date: " ></TextBlock>
+                <CalendarDatePicker x:Name="startDate" />
+                <TextBlock x:Name="endDateText" Text="End Date: " Margin="10 0 0 0"  VerticalAlignment="Center"></TextBlock>
+                <CalendarDatePicker x:Name="endDate"/>
+                <Button Content="Query" Click="Button_Click" Margin="10 0 0 0"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="please join in fareast domain to get all threads!" Foreground="Red" Visibility="Collapsed" x:Name="warningText"></TextBlock>
+
+                <GridView  x:Name="viewThreads" Margin="10 10 0 0"  ItemClick="viewThreads_ItemClick" IsItemClickEnabled="True" SizeChanged="viewThreads_SizeChanged">
+                    <GridView.ItemContainerStyle>
+                        <Style  TargetType="GridViewItem">
+                            <Setter Property="Background" Value="Beige"></Setter>
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                    <!--<ItemsWrapGrid></ItemsWrapGrid>-->
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Tapped="Grid_Tapped">
+                                <StackPanel Margin="20">
+                                    <TextBlock Text="{Binding ThreadTitle}" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding CSSActionName}" TextWrapping="NoWrap"  />
+                                    <TextBlock Text="{Binding Labors}" TextWrapping="NoWrap" />
+                                </StackPanel>
+                                <FlyoutBase.AttachedFlyout>
+                                    <Flyout>
+                                        <StackPanel Background="Beige">
+                                            <TextBlock>Add Labor:</TextBlock>
+                                            <TextBox />
+                                            <TextBlock >Change Action:</TextBlock>
+                                            <TextBox />
+                                        </StackPanel>
+                                    </Flyout>
+                                </FlyoutBase.AttachedFlyout>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+
+                </GridView>
+
+            </StackPanel>
         </Grid>
-        <TextBlock x:Name="toolTitle" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="CSDN Tool" VerticalAlignment="Top" Height="60" Width="215" Foreground="White" FontFamily="Times New Roman" FontSize="29.333"/>
     </Grid>
     <Page.BottomAppBar>
         <AppBar x:Name="appBar" IsSticky="True">
             <StackPanel Name="buttonPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                <AppBarButton Icon="Play" Label="SymbolIcon" />
+                <AppBarButton Icon="Find" Label="Search" Click="Search_Click" >
+                    <!--<FlyoutBase.AttachedFlyout>
+                        <Flyout>
+                            <StackPanel>
+                             
+                            </StackPanel>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>-->
+                </AppBarButton>
                 <AppBarButton Icon="Target" x:Name="RegisterButton" Label="Register" Click="RegisterBackgroundTask" HorizontalAlignment="Left"/>
                 <AppBarButton Icon="Remove" x:Name="UnregisterButton" Label="Unregister" Click="UnregisterBackgroundTask"  HorizontalAlignment="Left"/>
                 <AppBarButton Icon="Upload"  x:Name="updateTitle" Label="Update titme"   HorizontalAlignment="Left" Click="updateTitle_Click"/>

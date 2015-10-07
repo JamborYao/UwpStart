@@ -11,20 +11,40 @@ namespace CSDNServices
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class ThreadDetail
+
+    public partial class ThreadsDetail
     {
-        public int Id { get; set; }
-        public Nullable<System.Guid> ThreadID { get; set; }
-        public string ReplyContent { get; set; }
-        public string ReplyUserName { get; set; }
-        public Nullable<System.DateTime> ReplyTime { get; set; }
-        public Nullable<bool> IsAnswer { get; set; }
+        public System.Guid Id { get; set; }
+        public Nullable<int> ForumID { get; set; }
+        public Nullable<int> TeamID { get; set; }
+        public Nullable<System.DateTime> ThreadCreateTime { get; set; }
+        public Nullable<System.DateTime> FirstReplyTime { get; set; }
+        public Nullable<int> IssueTypeID { get; set; }
+        public Nullable<int> ReplyNum { get; set; }
+        public Nullable<int> TechCategoryID { get; set; }
+        public Nullable<bool> IsReplied { get; set; }
+        public Nullable<int> CSSAction { get; set; }
+        public string Diffcult { get; set; }
+        public string CustomerLookingFor { get; set; }
+        public Nullable<int> OwnerID { get; set; }
+        public Nullable<double> UT { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
-        public Nullable<int> AgreeNumber { get; set; }
-        public Nullable<int> DisagreeNumber { get; set; }
-        public Nullable<int> SaveNumber { get; set; }
-        public Nullable<int> SameNumber { get; set; }
-        public Nullable<System.DateTime> LastUpdateTime { get; set; }
+        public string ThreadLink { get; set; }
+        public string ThreadTitle { get; set; }
+        public Nullable<int> CreateBy { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsChanged { get; set; }
+        public string Status { get; set; }
+        public string Alias { get; set; }
+        public Nullable<int> EngineerTeamID { get; set; }
+        public string EngnieerTeamName { get; set; }
+        public string ForumName { get; set; }
+        public string IssueTypeName { get; set; }
+        public string TechCategoryName { get; set; }
+        public string CSSActionName { get; set; }
+        public Nullable<double> Labors { get; set; }
+        public string TeamName { get; set; }
+        public string IRT { get; set; }
+        public string LastReplyUser { get; set; }
     }
 }

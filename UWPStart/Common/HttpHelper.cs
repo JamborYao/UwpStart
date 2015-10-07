@@ -32,9 +32,13 @@ namespace UWPStart.Common
             //outPutView.NavigateToString(content);
         }
 
-        public  static async Task<string> HttpClientGetThreads()
+        public  static async Task<string> HttpClientGetThreads(string startDate,string endDate)
         {
-            string url = "http://10.168.172.243:8080/ThreadDetailManagerService.svc/getThreadsByFilter2?startTime=08/30/2015&endTime=09/29/2015&owner=none&status=-1";
+            startDate = startDate??"08/30/2015";
+            endDate = endDate??"09/29/2015";
+            string url =string.Format( "http://10.168.172.243:8080/ThreadDetailManagerService.svc/getThreadsByFilter2?startTime={0}&endTime={1}&owner=none&status=-1",
+                startDate,
+                endDate);
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponse= await client.GetAsync(new Uri(url));
             httpResponse.EnsureSuccessStatusCode();
