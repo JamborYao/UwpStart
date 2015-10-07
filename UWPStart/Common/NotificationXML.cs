@@ -38,6 +38,16 @@ namespace UWPStart.Common
                        //  + "  <audio src='ms - winsoundevent:Notification.Reminder'/>"
                 + "</toast>";
 
+        public static string ToastInternetXML =
+               "<toast>"
+               + "  <visual>"
+               + "    <binding template='ToastGeneric'>"
+               + "      <text>{0}</text>"
+               + "      <text>{1}</text>"              
+               + "    </binding>"
+               + "  </visual>"   
+               + "</toast>";
+
         public static string TileXml =
               "<tile>"
               + "<visual version='3'>"

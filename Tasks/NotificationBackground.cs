@@ -24,19 +24,14 @@ namespace Tasks
         // The Run method is the entry point of a background task.
         //
         public void Run(IBackgroundTaskInstance taskInstance)
-        {
-
-        
-
+        {      
             var details = taskInstance.TriggerDetails as ToastNotificationActionTriggerDetail;
             if (details != null)
             {
                 string arguments = details.Argument;
                 var userInput = details.UserInput;
             }
-
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
-
             //
             // Query BackgroundWorkCost
             // Guidance: If BackgroundWorkCost is high, then perform only the minimum amount
@@ -45,7 +40,6 @@ namespace Tasks
             var cost = BackgroundWorkCost.CurrentBackgroundWorkCost;
             var settings = ApplicationData.Current.LocalSettings;
             settings.Values["BackgroundWorkCost"] = cost.ToString();
-
             //
             // Associate a cancellation handler with the background task.
             //
@@ -57,6 +51,7 @@ namespace Tasks
             _deferral = taskInstance.GetDeferral();
             _taskInstance = taskInstance;
             _deferral.Complete();
+           
             // _periodicTimer = ThreadPoolTimer.CreatePeriodicTimer(new TimerElapsedHandler(PeriodicTimerCallback), TimeSpan.FromSeconds(1));
         }
         private void OnCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)

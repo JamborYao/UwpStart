@@ -59,20 +59,22 @@ namespace UWPStart.Pages
         }
         private async void CSDNTool_Loaded(object sender, RoutedEventArgs e)
         {
-            startDate.Date=(new DateTimeOffset( DateTime.Now));         
-            endDate.Date=(new DateTimeOffset(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)));
+            startDate.Date = (new DateTimeOffset(DateTime.Now));
+            endDate.Date = (new DateTimeOffset(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)));
             DateTimeOffset QueryStart = (DateTimeOffset)startDate.Date;
             StartDate = QueryStart.DateTime;
             DateTimeOffset QueryEnd = (DateTimeOffset)endDate.Date;
             EndDate = QueryEnd.DateTime;
 
-            string x = await Common.HttpHelper.HttpClientGetThreads(null,null);
+            string x = await Common.HttpHelper.HttpClientGetThreads(null, null);
             if (!string.IsNullOrEmpty(x))
             {
                 internetAviable = true;
                 csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
                 viewThreads.ItemsSource = csdnThreads;
             }
+            var x1 = viewThreads.ItemContainerStyle.Setters;
+            
         }
 
         private void UnregisterBackgroundTask(object sender, RoutedEventArgs e)
@@ -158,9 +160,15 @@ namespace UWPStart.Pages
         private void Task_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
         {
             Debug.WriteLine("my task complete");
-            internetAviable = internetAviable == true ? false : true;          
+            internetAviable = internetAviable == true ? false : true;
             UpdateUI();
-
+            if (internetAviable == true)
+            {
+                Common.Notifications.SendToastMessage("Tips!","Connected to fareast domain successfully!");
+            }
+            else {
+                Common.Notifications.SendToastMessage("Warning!","Please join to fareast domain to get all threads!");
+            }
         }
         public async void UpdateUI()
         {
@@ -173,9 +181,8 @@ namespace UWPStart.Pages
                 });
             }
             else
-            {                
+            {
                 string x = await Common.HttpHelper.HttpClientGetThreads(StartDate.ToString(), EndDate.ToString());
-                internetAviable = true;
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
@@ -216,23 +223,7 @@ namespace UWPStart.Pages
 
         private void sendToast_Click(object sender, RoutedEventArgs e)
         {
-            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);
-            // Fill in the text elements
-            XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
-            for (int i = 0; i < stringElements.Length; i++)
-            {
-                stringElements[i].AppendChild(toastXml.CreateTextNode("Line " + i));
-            }
-            Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
-            // Specify the absolute path to an image
-            // String imagePath = "file:///" + Path.GetFullPath("toastImageAndText.png");
-            //XmlNodeList imageElements = toastXml.GetElementsByTagName("image");
-            badgeDOM.LoadXml(Common.NotificationXML.ToastWithActionXML);
-
-            ToastNotification toast = new ToastNotification(badgeDOM);
-            // toast.Activated += Toast_Activated;
-
-            ToastNotificationManager.CreateToastNotifier().Show(toast);
+            Common.Notifications.SendToastNotification();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -257,8 +248,8 @@ namespace UWPStart.Pages
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-        {                   
-            DateTimeOffset QueryStart =(DateTimeOffset) startDate.Date;           
+        {
+            DateTimeOffset QueryStart = (DateTimeOffset)startDate.Date;
             StartDate = QueryStart.DateTime;
             DateTimeOffset QueryEnd = (DateTimeOffset)endDate.Date;
             EndDate = QueryEnd.DateTime;
@@ -267,7 +258,7 @@ namespace UWPStart.Pages
             viewThreads.ItemsSource = csdnThreads;
         }
 
-        
+
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             //FlyoutBase.ShowAttachedFlyout(sender as FrameworkElement);
@@ -277,7 +268,7 @@ namespace UWPStart.Pages
         {
             var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
             var heigh = bounds.Height - 130 - 80;
-            viewThreads.Height = heigh;         
+            viewThreads.Height = heigh;
         }
 
         //private void Toast_Activated(ToastNotification sender, object args)

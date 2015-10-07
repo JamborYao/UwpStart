@@ -102,7 +102,9 @@
     </Compile>
     <Compile Include="Common\HttpHelper.cs" />
     <Compile Include="Common\NavigationPage.cs" />
+    <Compile Include="Common\Notifications.cs" />
     <Compile Include="Common\NotificationXML.cs" />
+    <Compile Include="Common\ThreadBackgroundColor.cs" />
     <Compile Include="Common\ValueConvert.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

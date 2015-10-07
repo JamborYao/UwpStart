@@ -6,30 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
+    xmlns:con="using:UWPStart.Common"
     >
     <Page.Resources>
+        
 
-        <!--
-            通过资源的方式定义 flyout 的样式和内容
-        -->
-        <Flyout x:Key="SharedFlyout" Placement="Right">
-            <StackPanel>
-                <TextBlock Text="我是 Flyout 中的内容" Foreground="White" FontSize="24" />
-            </StackPanel>
-            <!--
-                FlyoutPresenterStyle - 用于定义 flyout 的显示样式
-            -->
-            <Flyout.FlyoutPresenterStyle>
-                <Style TargetType="FlyoutPresenter">
-                    <Setter Property="ScrollViewer.ZoomMode" Value="Enabled"/>
-                    <Setter Property="Background" Value="Blue"/>
-                    <Setter Property="BorderBrush" Value="Red"/>
-                    <Setter Property="BorderThickness" Value="10"/>
-                    <Setter Property="MinHeight" Value="300"/>
-                    <Setter Property="MinWidth" Value="300"/>
-                </Style>
-            </Flyout.FlyoutPresenterStyle>
-        </Flyout>
 
     </Page.Resources>
     <Page.Background>
@@ -66,7 +47,16 @@
                 <GridView  x:Name="viewThreads" Margin="10 10 0 0"  ItemClick="viewThreads_ItemClick" IsItemClickEnabled="True" SizeChanged="viewThreads_SizeChanged">
                     <GridView.ItemContainerStyle>
                         <Style  TargetType="GridViewItem">
-                            <Setter Property="Background" Value="Beige"></Setter>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    Red
+                                    <!--<Binding Path="CSSAction">
+                                        <Binding.Converter>
+                                            <con:ThreadBackgroundColor></con:ThreadBackgroundColor>
+                                        </Binding.Converter>
+                                    </Binding>-->
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </GridView.ItemContainerStyle>
                     <!--<ItemsWrapGrid></ItemsWrapGrid>-->
