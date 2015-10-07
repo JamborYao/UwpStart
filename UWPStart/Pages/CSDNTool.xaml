@@ -9,8 +9,8 @@
     xmlns:con="using:UWPStart.Common"
     >
     <Page.Resources>
-        
 
+        <con:ThreadBackgroundColor x:Key="colorCovert"></con:ThreadBackgroundColor>
 
     </Page.Resources>
     <Page.Background>
@@ -46,15 +46,11 @@
 
                 <GridView  x:Name="viewThreads" Margin="10 10 0 0"  ItemClick="viewThreads_ItemClick" IsItemClickEnabled="True" SizeChanged="viewThreads_SizeChanged">
                     <GridView.ItemContainerStyle>
-                        <Style  TargetType="GridViewItem">
+                        <Style  TargetType="GridViewItem" >
                             <Setter Property="Background">
                                 <Setter.Value>
-                                    Red
-                                    <!--<Binding Path="CSSAction">
-                                        <Binding.Converter>
-                                            <con:ThreadBackgroundColor></con:ThreadBackgroundColor>
-                                        </Binding.Converter>
-                                    </Binding>-->
+                                    Beige
+                                    
                                 </Setter.Value>
                             </Setter>
                         </Style>
@@ -63,10 +59,11 @@
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <Grid Tapped="Grid_Tapped">
-                                <StackPanel Margin="20">
-                                    <TextBlock Text="{Binding ThreadTitle}" FontWeight="Bold" />
-                                    <TextBlock Text="{Binding CSSActionName}" TextWrapping="NoWrap"  />
-                                    <TextBlock Text="{Binding Labors}" TextWrapping="NoWrap" />
+                                <StackPanel Margin="20" 
+                                             >
+                                    <TextBlock Text="{Binding ThreadTitle,Mode=OneWay}"  FontWeight="Bold" />
+                                    <TextBlock Text="{Binding CSSActionName,Mode=OneWay}" TextWrapping="NoWrap" Foreground="{Binding CSSAction,Mode=OneWay,Converter={StaticResource colorCovert}}"  />
+                                    <TextBlock Text="{Binding Labors,Mode=OneWay}" TextWrapping="NoWrap" />
                                 </StackPanel>
                                 <FlyoutBase.AttachedFlyout>
                                     <Flyout>

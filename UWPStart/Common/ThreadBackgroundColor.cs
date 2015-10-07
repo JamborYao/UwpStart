@@ -12,13 +12,14 @@ namespace UWPStart.Common
         public System.Object Convert(System.Object value, Type targetType, System.Object parameter, System.String language)
         {
             string color = "";
+
             switch ((int)value)
             {
                 case 1:
                     color = "Green";
                     break;
                 case 5:
-                    color = "Grey";
+                    color = "Blue";
                     break;
                 default:
                     color = "Beige";
@@ -26,7 +27,9 @@ namespace UWPStart.Common
             }
 
             return color;
+
         }
+
         public System.Object ConvertBack(System.Object value, Type targetType, System.Object parameter, System.String language)
         {
             return new object();

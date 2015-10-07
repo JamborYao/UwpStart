@@ -73,7 +73,7 @@ namespace UWPStart.Pages
                 csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
                 viewThreads.ItemsSource = csdnThreads;
             }
-            var x1 = viewThreads.ItemContainerStyle.Setters;
+         
             
         }
 
