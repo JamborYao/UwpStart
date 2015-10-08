@@ -44,6 +44,7 @@ namespace UWPStart.Pages
         {
             this.InitializeComponent();
             this.Loaded += CSDNTool_Loaded;
+            csdnThreads = new ObservableCollection<ThreadsDetail>();
             RegisterTask();
             // ObservableCollection<ThreadsDetail> csdnThreads = new ObservableCollection<ThreadsDetail>();
             //   csdnThreads.Add(new ThreadsDetail { ThreadTitle = "just a test", Labors = 50, CSSActionName = "test");
@@ -73,8 +74,8 @@ namespace UWPStart.Pages
                 csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
                 viewThreads.ItemsSource = csdnThreads;
             }
-         
-            
+            Common.Notifications.UpdateTile("Total " + csdnThreads.Count ?? 0 + "threads!");
+
         }
 
         private void UnregisterBackgroundTask(object sender, RoutedEventArgs e)
@@ -144,7 +145,7 @@ namespace UWPStart.Pages
                     TaskEntryPoint = "Tasks.NotificationBackground"
                 };
                 //taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.NetworkStateChange, false));
-                taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.TimeZoneChange, false));
+                taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.NetworkStateChange, false));
                 BackgroundTaskRegistration task = taskBuilder.Register();
 
                 task.Completed += Task_Completed;
@@ -164,10 +165,11 @@ namespace UWPStart.Pages
             UpdateUI();
             if (internetAviable == true)
             {
-                Common.Notifications.SendToastMessage("Tips!","Connected to fareast domain successfully!");
+                Common.Notifications.SendToastMessage("Tips!","Connected to fareast domain successfully!");              
             }
             else {
                 Common.Notifications.SendToastMessage("Warning!","Please join to fareast domain to get all threads!");
+                Common.Notifications.UpdateTile("please join fareast domain!");
             }
         }
         public async void UpdateUI()
@@ -195,30 +197,7 @@ namespace UWPStart.Pages
         {
             // ToastNotification 
             //  string badgeXmlString = "<badge value='" + textBox.Text + "'/>";
-            Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
-            try
-            {
-                // Create a DOM.
-                badgeDOM.LoadXml(Common.NotificationXML.TileXml);
-
-                // Load the xml string into the DOM, catching any invalid xml characters.
-                //BadgeNotification badge = new BadgeNotification(badgeDOM);
-
-                //// Create a badge notification and send it to the application’s tile.
-                //BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(badge);
-
-                TileNotification tile = new TileNotification(badgeDOM);
-                TileUpdateManager.CreateTileUpdaterForApplication().Update(tile);
-
-
-                //OutputTextBlock.Text = badgeDOM.GetXml();
-                //rootPage.NotifyUser("Badge sent", NotifyType.StatusMessage);
-            }
-            catch (Exception)
-            {
-                //OutputTextBlock.Text = string.Empty;
-                //rootPage.NotifyUser("Error loading the xml, check for invalid characters in the input", NotifyType.ErrorMessage);
-            }
+            Common.Notifications.UpdateTile("please join fareast domain!");
         }
 
         private void sendToast_Click(object sender, RoutedEventArgs e)
@@ -232,7 +211,7 @@ namespace UWPStart.Pages
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
             // Myreg();
-
+         
             base.OnNavigatedTo(e);
         }
 
@@ -256,6 +235,7 @@ namespace UWPStart.Pages
             string x = await Common.HttpHelper.HttpClientGetThreads(StartDate.ToString(), EndDate.ToString());
             csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
             viewThreads.ItemsSource = csdnThreads;
+            Common.Notifications.UpdateTile("Total " + csdnThreads.Count ?? 0 + "threads!");
         }
 
 

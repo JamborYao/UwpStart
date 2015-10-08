@@ -25,5 +25,20 @@ namespace UWPStart.Common
             ToastNotification toast = new ToastNotification(badgeDOM);        
             ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
+
+        public static void UpdateTile(string message)
+        {
+            Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
+            try
+            {                
+                badgeDOM.LoadXml(string.Format( Common.NotificationXML.TileXml,message));
+                TileNotification tile = new TileNotification(badgeDOM);
+                TileUpdateManager.CreateTileUpdaterForApplication().Update(tile);                
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 }

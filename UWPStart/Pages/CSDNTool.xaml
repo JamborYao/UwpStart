@@ -9,9 +9,7 @@
     xmlns:con="using:UWPStart.Common"
     >
     <Page.Resources>
-
         <con:ThreadBackgroundColor x:Key="colorCovert"></con:ThreadBackgroundColor>
-
     </Page.Resources>
     <Page.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -33,7 +31,6 @@
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-
             <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
                 <TextBlock x:Name="startDateText"  VerticalAlignment="Center" Text="Start Date: " ></TextBlock>
                 <CalendarDatePicker x:Name="startDate" />
@@ -59,8 +56,7 @@
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <Grid Tapped="Grid_Tapped">
-                                <StackPanel Margin="20" 
-                                             >
+                                <StackPanel Margin="20">
                                     <TextBlock Text="{Binding ThreadTitle,Mode=OneWay}"  FontWeight="Bold" />
                                     <TextBlock Text="{Binding CSSActionName,Mode=OneWay}" TextWrapping="NoWrap" Foreground="{Binding CSSAction,Mode=OneWay,Converter={StaticResource colorCovert}}"  />
                                     <TextBlock Text="{Binding Labors,Mode=OneWay}" TextWrapping="NoWrap" />
@@ -87,14 +83,7 @@
     <Page.BottomAppBar>
         <AppBar x:Name="appBar" IsSticky="True">
             <StackPanel Name="buttonPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                <AppBarButton Icon="Find" Label="Search" Click="Search_Click" >
-                    <!--<FlyoutBase.AttachedFlyout>
-                        <Flyout>
-                            <StackPanel>
-                             
-                            </StackPanel>
-                        </Flyout>
-                    </FlyoutBase.AttachedFlyout>-->
+                <AppBarButton Icon="Find" Label="Search" Click="Search_Click" >                   
                 </AppBarButton>
                 <AppBarButton Icon="Target" x:Name="RegisterButton" Label="Register" Click="RegisterBackgroundTask" HorizontalAlignment="Left"/>
                 <AppBarButton Icon="Remove" x:Name="UnregisterButton" Label="Unregister" Click="UnregisterBackgroundTask"  HorizontalAlignment="Left"/>

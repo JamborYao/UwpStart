@@ -10,7 +10,7 @@ namespace UWPStart.Common
     public class ThreadBackgroundColor : IValueConverter
     {
         public System.Object Convert(System.Object value, Type targetType, System.Object parameter, System.String language)
-        {
+         {
             string color = "";
 
             switch ((int)value)

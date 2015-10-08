@@ -1,6 +1,8 @@
-﻿using Microsoft.WindowsAzure.MobileServices;
+﻿using Microsoft.WindowsAzure.Messaging;
+using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -8,6 +10,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.PushNotifications;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -51,7 +54,7 @@ namespace UWPStart
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-
+            InitNotificationsAsync();
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -113,7 +116,25 @@ namespace UWPStart
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
-       
 
+        private async void InitNotificationsAsync()
+        {
+            var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+
+            var hub = new NotificationHub("uwpstart", "Endpoint=sb://jamobilehub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=Lcai4r4yWy6SGWhqcfCjlhkRrK0RKL5bjM8HjD63KBA=");
+            var result = await hub.RegisterNativeAsync(channel.Uri);
+           
+            if (result.RegistrationId != null)
+            {               
+                Debug.WriteLine("Registration successful!");
+            }
+
+            channel.PushNotificationReceived += Channel_PushNotificationReceived;
+        }
+
+        private void Channel_PushNotificationReceived(PushNotificationChannel sender, PushNotificationReceivedEventArgs args)
+        {
+            Common.Notifications.UpdateTile("new threads coming!");
+        }
     }
 }
