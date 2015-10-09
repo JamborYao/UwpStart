@@ -46,22 +46,21 @@ namespace UWPStart.Pages
             this.Loaded += CSDNTool_Loaded;
             csdnThreads = new ObservableCollection<ThreadsDetail>();
             RegisterTask();
-            // ObservableCollection<ThreadsDetail> csdnThreads = new ObservableCollection<ThreadsDetail>();
-            //   csdnThreads.Add(new ThreadsDetail { ThreadTitle = "just a test", Labors = 50, CSSActionName = "test");
+         
 
         }
-        private void RegisterBackgroundTask(object sender, RoutedEventArgs e)
-        {
-            RegisterBackgroundTask("UWPStart.Common.NotifyBackground",
-                "TimeTaskNew",
-                                                                 new SystemTrigger(SystemTriggerType.TimeZoneChange, false),
-                                                                 null);
+        //private void RegisterBackgroundTask(object sender, RoutedEventArgs e)
+        //{
+        //    RegisterBackgroundTask("UWPStart.Common.NotifyBackground",
+        //        "TimeTaskNew",
+        //                                                         new SystemTrigger(SystemTriggerType.TimeZoneChange, false),
+        //                                                         null);
 
-        }
+        //}
         private async void CSDNTool_Loaded(object sender, RoutedEventArgs e)
         {
-            startDate.Date = (new DateTimeOffset(DateTime.Now));
-            endDate.Date = (new DateTimeOffset(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)));
+            endDate.Date = (new DateTimeOffset(DateTime.Now));
+            startDate.Date = (new DateTimeOffset(new DateTime(DateTime.Now.Year, 8, 30)));
             DateTimeOffset QueryStart = (DateTimeOffset)startDate.Date;
             StartDate = QueryStart.DateTime;
             DateTimeOffset QueryEnd = (DateTimeOffset)endDate.Date;
@@ -85,38 +84,24 @@ namespace UWPStart.Pages
                 cur.Value.Unregister(true);
             }
         }
-        public static void RegisterBackgroundTask(String taskEntryPoint, String name, IBackgroundTrigger trigger, IBackgroundCondition condition)
+        public static void RegisterBackgroundTask(String taskEntryPoint, String name, IBackgroundTrigger trigger, IBackgroundCondition condition,
+            BackgroundTaskCompletedEventHandler completeHandler
+            )
         {
-            //if (TaskRequiresBackgroundAccess(name))
-            //{
-            //    await BackgroundExecutionManager.RequestAccessAsync();
-            //}
-
             var builder = new BackgroundTaskBuilder();
-
             builder.Name = name;
             builder.TaskEntryPoint = taskEntryPoint;
             builder.SetTrigger(trigger);
-
             if (condition != null)
             {
                 builder.AddCondition(condition);
-
-                //
-                // If the condition changes while the background task is executing then it will
-                // be canceled.
-                //
                 builder.CancelOnConditionLoss = true;
             }
-
             BackgroundTaskRegistration task = builder.Register();
-
-
-
-            //
-            // Remove previous completion status from local settings.
-            //
-
+            if (completeHandler != null)
+            {
+                task.Completed += completeHandler;
+            }
         }
 
         private static bool TaskRequiresBackgroundAccess(string name)
@@ -128,31 +113,31 @@ namespace UWPStart.Pages
         {
             bool taskRegister = false;
             string myRegister = "MyTimeTask2";
+            string toastBackgroundTask = "toastTask";
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
-                //if (task.Value.Name == myRegister)
-                //{
-                //    taskRegister = true;
-                //    break;
-                //}
                 task.Value.Unregister(true);
             }
             if (taskRegister == false)
             {
-                BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder
-                {
-                    Name = myRegister,
-                    TaskEntryPoint = "Tasks.NotificationBackground"
-                };
-                //taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.NetworkStateChange, false));
-                taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.NetworkStateChange, false));
-                BackgroundTaskRegistration task = taskBuilder.Register();
-
-                task.Completed += Task_Completed;
-                // task.Progress += Task_Progress;
+                RegisterBackgroundTask(taskEntryPoint: "Tasks.NotificationBackground",
+                    name: myRegister,
+                    trigger: new SystemTrigger(SystemTriggerType.TimeZoneChange, false),
+                    condition: null,
+                    completeHandler: Task_Completed
+                    );
+                RegisterBackgroundTask(taskEntryPoint: "Tasks.ToastBackgroundTask",
+                  name: toastBackgroundTask,
+                  trigger: new ToastNotificationActionTrigger(),
+                  condition: null,
+                  completeHandler: ToastTask_Completed
+                  );
             }
         }
+        private void ToastTask_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
+        {
 
+        }
         private void Task_Progress(BackgroundTaskRegistration sender, BackgroundTaskProgressEventArgs args)
         {
             Debug.WriteLine("my task " + args.Progress + "%" + "downloaded!");
@@ -165,10 +150,11 @@ namespace UWPStart.Pages
             UpdateUI();
             if (internetAviable == true)
             {
-                Common.Notifications.SendToastMessage("Tips!","Connected to fareast domain successfully!");              
+                Common.Notifications.SendToastMessage("Tips!", "Connected to fareast domain successfully!");
             }
-            else {
-                Common.Notifications.SendToastMessage("Warning!","Please join to fareast domain to get all threads!");
+            else
+            {
+                Common.Notifications.SendToastMessage("Warning!", "Please join to fareast domain to get all threads!");
                 Common.Notifications.UpdateTile("please join fareast domain!");
             }
         }
@@ -202,16 +188,13 @@ namespace UWPStart.Pages
 
         private void sendToast_Click(object sender, RoutedEventArgs e)
         {
-            Common.Notifications.SendToastNotification();
+            Common.Notifications.SendToastWithActionNotification(Common.NotificationXML.ToastWithActionXML, null);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-
-            // Myreg();
-         
             base.OnNavigatedTo(e);
         }
 
@@ -236,6 +219,19 @@ namespace UWPStart.Pages
             csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
             viewThreads.ItemsSource = csdnThreads;
             Common.Notifications.UpdateTile("Total " + csdnThreads.Count ?? 0 + "threads!");
+            foreach (var item in csdnThreads)
+            {
+                if (item.CSSAction == 9)
+                {
+                    id = item.Id.ToString();
+                    TypedEventHandler<ToastNotification, System.Object> toastActived = Toast_Activated;
+                    Common.Notifications.SendToastWithActionNotification(
+                        string.Format(Common.NotificationXML.offtopic_ToastActionXML,
+                        "Confirm:",
+                        item.ThreadTitle + "---is a offtopic thread."
+                        ), Toast_Activated);
+                }
+            }
         }
 
 
@@ -250,10 +246,35 @@ namespace UWPStart.Pages
             var heigh = bounds.Height - 130 - 80;
             viewThreads.Height = heigh;
         }
+        private string id { get; set; }
+        private async void Toast_Activated(ToastNotification sender, object args)
+        {
+            
+            if (((Windows.UI.Notifications.ToastActivatedEventArgs)args).Arguments == "offtopic")
+            {
+                ThreadsDetail item = csdnThreads.Where(c => c.Id.ToString() == id).FirstOrDefault();
 
-        //private void Toast_Activated(ToastNotification sender, object args)
-        //{
-        //    //throw new NotImplementedException();
-        //}
+                if (internetAviable == false)
+                {
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        csdnThreads.Clear();
+                        warningText.Visibility = Visibility;
+                    });
+                }
+                else
+                {
+                    //string x = await Common.HttpHelper.HttpClientGetThreads(StartDate.ToString(), EndDate.ToString());
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        csdnThreads.Remove(item);
+                        //csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
+                        viewThreads.ItemsSource = csdnThreads;
+                        warningText.Visibility = Visibility.Collapsed;
+                    });
+                }
+            }
+            //throw new NotImplementedException();
+        }
     }
 }

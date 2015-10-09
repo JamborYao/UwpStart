@@ -122,7 +122,10 @@ namespace UWPStart
             var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
 
             var hub = new NotificationHub("uwpstart", "Endpoint=sb://jamobilehub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=Lcai4r4yWy6SGWhqcfCjlhkRrK0RKL5bjM8HjD63KBA=");
-            var result = await hub.RegisterNativeAsync(channel.Uri);
+            var tags = new string[2];            
+            tags[0] = "MSDN";
+            tags[1] = "movies";
+            var result = await hub.RegisterNativeAsync(channel.Uri, tags);
            
             if (result.RegistrationId != null)
             {               

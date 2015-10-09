@@ -37,7 +37,21 @@ namespace UWPStart.Common
                 + "  </actions>"
                        //  + "  <audio src='ms - winsoundevent:Notification.Reminder'/>"
                 + "</toast>";
-
+        public static string offtopic_ToastActionXML =
+           "<toast>"
+           + "  <visual>"
+           + "    <binding template='ToastGeneric'>"
+           + "      <text>{0}</text>"
+           + "      <text>{1}</text>"
+           + "      <image placement='AppLogoOverride' src='StoreLogo.png' />"
+           + "    </binding>"
+           + "  </visual>"
+           + "  <actions>"
+           + "<input id = 'message' type = 'text' placeholderContent = 'remark:' />"
+           + "    <action content='Mark as Offtopic' arguments='offtopic'  activationType='background'/>" //background  foreground
+           + "    <action content='Ignore' arguments='ignore' />"
+           + "  </actions>"         
+           + "</toast>";
         public static string ToastInternetXML =
                "<toast>"
                + "  <visual>"
