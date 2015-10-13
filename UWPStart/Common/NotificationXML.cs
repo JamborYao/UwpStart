@@ -49,7 +49,7 @@ namespace UWPStart.Common
            + "  <actions>"
            + "<input id = 'message' type = 'text' placeholderContent = 'remark:' />"
            + "    <action content='Mark as Offtopic' arguments='offtopic'  activationType='background'/>" //background  foreground
-           + "    <action content='Ignore' arguments='ignore' />"
+           + "    <action content='{2}' arguments='ignore' />"
            + "  </actions>"         
            + "</toast>";
         public static string ToastInternetXML =

@@ -38,7 +38,7 @@ namespace UWPStart.Pages
         private ObservableCollection<ThreadsDetail> csdnThreads;
         private DateTime StartDate;
         private DateTime EndDate;
-
+        private Dictionary<string,string> offtopics;
         private bool internetAviable = false;
         public CSDNTool()
         {
@@ -122,7 +122,7 @@ namespace UWPStart.Pages
             {
                 RegisterBackgroundTask(taskEntryPoint: "Tasks.NotificationBackground",
                     name: myRegister,
-                    trigger: new SystemTrigger(SystemTriggerType.TimeZoneChange, false),
+                    trigger: new SystemTrigger(SystemTriggerType.NetworkStateChange, false),
                     condition: null,
                     completeHandler: Task_Completed
                     );
@@ -211,6 +211,7 @@ namespace UWPStart.Pages
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            offtopics = new Dictionary<string, string>();
             DateTimeOffset QueryStart = (DateTimeOffset)startDate.Date;
             StartDate = QueryStart.DateTime;
             DateTimeOffset QueryEnd = (DateTimeOffset)endDate.Date;
@@ -224,14 +225,12 @@ namespace UWPStart.Pages
                 if (item.CSSAction == 9)
                 {
                     id = item.Id.ToString();
-                    TypedEventHandler<ToastNotification, System.Object> toastActived = Toast_Activated;
-                    Common.Notifications.SendToastWithActionNotification(
-                        string.Format(Common.NotificationXML.offtopic_ToastActionXML,
-                        "Confirm:",
-                        item.ThreadTitle + "---is a offtopic thread."
-                        ), Toast_Activated);
+                    offtopics[id] = item.ThreadTitle;              
                 }
+
             }
+            NextOffTopicToast(); 
+
         }
 
 
@@ -249,7 +248,8 @@ namespace UWPStart.Pages
         private string id { get; set; }
         private async void Toast_Activated(ToastNotification sender, object args)
         {
-            
+
+
             if (((Windows.UI.Notifications.ToastActivatedEventArgs)args).Arguments == "offtopic")
             {
                 ThreadsDetail item = csdnThreads.Where(c => c.Id.ToString() == id).FirstOrDefault();
@@ -274,7 +274,27 @@ namespace UWPStart.Pages
                     });
                 }
             }
+
+            NextOffTopicToast();
+
+
             //throw new NotImplementedException();
+        }
+
+        public void NextOffTopicToast()
+        {
+            if (offtopics.Count > 0)
+            {
+                TypedEventHandler<ToastNotification, System.Object> toastActived = Toast_Activated;
+                Common.Notifications.SendToastWithActionNotification(
+                    string.Format(Common.NotificationXML.offtopic_ToastActionXML,
+                    "Confirm:",
+                    offtopics.First().Value + "---is a offtopic thread.",
+                    offtopics.Count == 1 ? "Ignore" : "Next"
+                    ), Toast_Activated);
+                id = offtopics.First().Key;
+                offtopics.Remove(id);
+            }
         }
     }
 }
