@@ -145,6 +145,9 @@
       <DependentUpon>Reports.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThreadRelated\ComboBoxEnum.xaml.cs">
+      <DependentUpon>ComboBoxEnum.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\ItemUserControl.xaml.cs">
       <DependentUpon>ItemUserControl.xaml</DependentUpon>
@@ -204,6 +207,15 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Reports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RDLearnxaml.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="ThreadRelated\ComboBoxEnum.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
