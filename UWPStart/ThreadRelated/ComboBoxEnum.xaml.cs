@@ -44,7 +44,7 @@ namespace UWPStart.ThreadRelated
             DataType = "test2";
 
             // FontsCombo
-            this.FontsCombo.ItemsSource = test;
+          //  this.FontsCombo.ItemsSource = test;
         }
         public string DataType { get; set; }
         enum Week
@@ -64,6 +64,15 @@ namespace UWPStart.ThreadRelated
                 .Select(value => new KeyValuePair<String, Enum>(value.ToString()+"Text", value))
                 .ToList();
         }
+
+
+    }
+    public class FieldDataType
+    {
+    }
+    public class TextField
+    {
+        public string DataType { get; set; }
     }
 }
 

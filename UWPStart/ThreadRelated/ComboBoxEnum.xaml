@@ -15,7 +15,8 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ComboBox x:Name="FontsCombo" Header="data type" Height="90" Width="293" 
-        DisplayMemberPath="Key"          
+        DisplayMemberPath="Key"     
+                  ItemsSource="{Binding test}"
                   SelectedValuePath="Value"
                   SelectedValue="{Binding DataType,Mode=OneWay}" 
                   />
@@ -23,13 +24,13 @@
                  Margin="77,189,0,0" TextWrapping="Wrap" 
                  Text="{x:Bind DataType,Mode=OneWay}" VerticalAlignment="Top"/>
 
-        <Ellipse Fill="{StaticResource brush1}"></Ellipse>
+        <!--<Ellipse Fill="{StaticResource brush1}"></Ellipse>
         <Button x:Name="button" 
                 HorizontalAlignment="Left" 
                 Margin="10,299,0,0" 
          ContentTemplate="{StaticResource landscape}"
                 VerticalAlignment="Top">
-         </Button>
+         </Button>-->
 
     </Grid>
 </Page>
