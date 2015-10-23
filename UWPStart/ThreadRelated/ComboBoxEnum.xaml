@@ -16,13 +16,13 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ComboBox x:Name="FontsCombo" Header="data type" Height="90" Width="293" 
         DisplayMemberPath="Key"     
-                  ItemsSource="{Binding test}"
+                  ItemsSource="{x:Bind test}"
                   SelectedValuePath="Value"
-                  SelectedValue="{Binding DataType,Mode=OneWay}" 
+                  SelectedValue="{x:Bind DataType,Mode=OneWay}" 
                   />
         <TextBox x:Name="textBox" HorizontalAlignment="Left"
                  Margin="77,189,0,0" TextWrapping="Wrap" 
-                 Text="{x:Bind DataType,Mode=OneWay}" VerticalAlignment="Top"/>
+                 Text="{Binding DataType,Mode=OneWay}" VerticalAlignment="Top"/>
 
         <!--<Ellipse Fill="{StaticResource brush1}"></Ellipse>
         <Button x:Name="button" 

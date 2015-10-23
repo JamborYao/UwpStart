@@ -29,7 +29,7 @@ namespace UWPStart.ThreadRelated
         ObservableCollection<FontFamily> fonts = new ObservableCollection<FontFamily>();
         List<KeyValuePair<string, Enum>> FieldDataTypes = new List<KeyValuePair<string, Enum>>();
         List<KeyValuePair<string, string>> test = new List<KeyValuePair<string, string>>();
-        
+        List<KeyValuePair<string, Enum>> test1 = new List<KeyValuePair<string, Enum>>();
 
         public ComboBoxEnum()
         {
@@ -41,16 +41,23 @@ namespace UWPStart.ThreadRelated
             FieldDataTypes =  ToKeyValuePair(typeof(Week));
             test.Add(new KeyValuePair<string, string>("1", "test1"));
             test.Add(new KeyValuePair<string, string>("2", "test2"));
-            DataType = "test2";
+            test1.Add(new KeyValuePair<string, Enum>("1", Week.Monday));
+            test1.Add(new KeyValuePair<string, Enum>("2", Week.Tuesday));
+            DataType = "test1";
 
             // FontsCombo
-          //  this.FontsCombo.ItemsSource = test;
+            //this.FontsCombo.ItemsSource = test;
+            //this.FontsCombo.SelectedValue = Week.Monday;
+            //this.FontsCombo.SelectedValuePath = "Value";
         }
         public string DataType { get; set; }
         enum Week
         {
+            [Display("first day")]
             Monday,
+            [Display("second day")]
             Tuesday,
+            [Display("third day")]
             Wednesday
 
         }
@@ -61,18 +68,21 @@ namespace UWPStart.ThreadRelated
 
             return Enum.GetValues(enumType)
                 .Cast<Enum>()
-                .Select(value => new KeyValuePair<String, Enum>(value.ToString()+"Text", value))
+                .Select(value => new KeyValuePair<String, Enum>(value.GetType().GetField(value.ToString()).GetCustomAttribute<DisplayAttribute>().Name, value))
                 .ToList();
         }
 
 
     }
-    public class FieldDataType
+   
+    public class DisplayAttribute : Attribute
     {
+        public DisplayAttribute(string name)
+        {
+            Name = name;
+        }
+        public string Name { get; set; }
     }
-    public class TextField
-    {
-        public string DataType { get; set; }
-    }
+
 }
 
