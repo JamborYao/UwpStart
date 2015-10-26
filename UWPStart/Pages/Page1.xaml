@@ -5,12 +5,19 @@
     xmlns:local="using:UWPStart.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-
+    mc:Ignorable="d"
+    xmlns:ren="using:UWPStart">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="RDLearnxaml.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Text="Page 1" ></TextBlock>
         <HyperlinkButton HorizontalAlignment="Center" x:Name="hyLink" Content="Click to go to page 2" Click="HyperlinkButton_Click"/>
 
-
+        <ren:RenderTest    Style="{StaticResource test123}"></ren:RenderTest>
     </Grid>
 </Page>

@@ -18,5 +18,24 @@
 
         </Button>
     </DataTemplate>
-
+    
+    <Style x:Key="test123"
+         TargetType="local:RenderTest">
+        <Setter
+             Property="Template">
+            <Setter.Value>
+                <ControlTemplate
+                     TargetType="local:RenderTest">
+                    <Grid
+                         Background="Transparent">
+                        <Grid.RenderTransform>
+                            <RotateTransform Angle="45"/>
+                        </Grid.RenderTransform>
+                        <ContentPresenter>
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

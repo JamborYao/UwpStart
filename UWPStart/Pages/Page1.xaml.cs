@@ -32,6 +32,7 @@ namespace UWPStart.Pages
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Page2), hyLink.Content);
+            
         }
         private void App_BackRequested(object sender, BackRequestedEventArgs e)
         {
