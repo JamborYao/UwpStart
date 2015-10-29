@@ -152,6 +152,15 @@
     <Compile Include="ThreadRelated\ComboBoxEnum.xaml.cs">
       <DependentUpon>ComboBoxEnum.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ThreadRelated\ContinuationPage.xaml.cs">
+      <DependentUpon>ContinuationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ThreadRelated\Print.xaml.cs">
+      <DependentUpon>Print.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ThreadRelated\PrintDemo.xaml.cs">
+      <DependentUpon>PrintDemo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\ItemUserControl.xaml.cs">
       <DependentUpon>ItemUserControl.xaml</DependentUpon>
@@ -228,6 +237,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ThreadRelated\ComboBoxEnum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ThreadRelated\ContinuationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ThreadRelated\Print.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ThreadRelated\PrintDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

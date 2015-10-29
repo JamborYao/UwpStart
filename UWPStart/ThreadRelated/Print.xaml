@@ -1,0 +1,93 @@
+﻿<Page
+    x:Class="UWPStart.ThreadRelated.Print"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPStart.ThreadRelated"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="printableArea">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--页头，仅第一页需要页头-->
+        <StackPanel x:Name="header" Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Height="60" Visibility="Collapsed">
+            <Image Source="ms-appx:///Assets/Logo.png" HorizontalAlignment="Left"/>
+            <RichTextBlock Foreground="Black" FontSize="20" TextAlignment="Left" Margin="10 0 0 0">
+                <Paragraph>webabcd print demo</Paragraph>
+            </RichTextBlock>
+        </StackPanel>
+
+        <!--正文-->
+        <RichTextBlock Foreground="Black" x:Name="textContent" FontSize="18" Grid.Row="1" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Top" HorizontalAlignment="Left"
+                       OverflowContentTarget="{Binding ElementName=imageLeftText}">
+            <Paragraph FontSize="32">Microsoft</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">微软（Microsoft，NASDAQ:MSFT，HKEx: 4338)公司是世界PC(Personal Computer，个人计算机)机软件开发的先导，由比尔·盖茨与保罗·艾伦创始于1975年，总部设在华盛顿州的雷德蒙市（Redmond，邻近西雅图）。目前是全球最大的电脑软件提供商。微软公司现有雇员9万人，2012年营业额699.4亿美元，其主要产品为Windows操作系统、Internet Explorer网页浏览器及Microsoft Office办公软件套件。1999年推出了MSN Messenger网络即时信息客户程序；2001年推出Xbox游戏机，参与游戏终端机市场竞争。2012年8月23日，微软25年以来首次更换公司Logo。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">2001年，微软结合Windows 98和Windows 2000系列的优点，推出了Windows XP操作系统，XP的意思是“体验”。XP系统重点加强了安全性和稳定性，首次在Windows操作系统中集成了微软自己的防火墙产品。它还拓展了多媒体应用方面的功能。XP系统主要有家庭版和专业版两种，其中专业版保留了Windows 2000中的用户管理、组策略等安全特性，并使其更加易用。Windows XP又一次成为软件发展史上的经典之作。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">在IT软件行业流传着这样一句告诫：“永远不要去做微软想做的事情”。可见，微软的巨大潜力已经渗透到了软件界的方方面面，简直是无孔不入，而且是所向披靡。微软的巨大影响已经对软件同行构成了极大的压力，也把自己推上了反垄断法的被告位置。连多年来可靠的合作伙伴Intel也与之反目，对簿公堂。2001年9月，鉴于经济低迷，美国政府有意重振美国信息产业，拒绝拆分微软。至此，诉微软反垄断法案告一段落。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">微软联合创始人兼领袖比尔·盖茨、保罗·艾伦，两位都是世界上智力过人，才华出众的天才。保罗·艾伦的智力商数超越170， 在当微软创始人之一 比尔·盖茨今世界的天才中排名第九， 比尔盖茨智商超越160，曾经在哈佛大学读书期间，数学成绩十分突出，解决过一道世界难题，受美国科学院院士哈佛教授嘉奖，并与老师联合发表论文。 现任总裁史蒂夫·鲍尔默曾是美国数学竞赛全美前10名，美国高考SAT考试，保罗·艾伦与史蒂夫·鲍尔默更是获得了1600分的满分。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">Xbox360是世界最大的电脑软件公司微软所开发的第二代家用视频游戏主机，在开发时被称为“Xenon”、“Xbox 2”及“Xbox Next”等。微软Xbox360是唯一一款具备定时功能的游戏机，家长们可轻松设定相应游戏时间，同时也能对孩子们所玩、所观看的内容加以限制。Xbox Live诞生于2002年,是微软为其游戏主机XBOX所提供的网络服务。联机游戏：支持语音短信、私人语音聊天、个性化设置以及统一标准的好友列表。2001年公司推出的Xbox游戏机标志着公司开始进入价值上百亿美元的游戏终端市场，这个市场之前一直由索尼公司（Sony）和任天堂（Nintendo）两家公司主导。2005年11月22日，微软公司发售第二代家用视频游戏主机Xbox360。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">北京时间5月22日消息，据微软官网和路透社报道，微软5月21日正式发布了新一代的游戏主机Xbox One，微软将其定义为多功能一体的游戏和娱乐系统，强调融合TV和游戏的全娱乐体验。本次发布距微软2005年发布上一代Xbox 360以来，已经时隔8年。微软在华盛顿州雷德蒙德市的公司总部演示了Xbox One如何将用户置于所有的游戏、电视、电影、音乐、体育和Skype的中心。微软互动娱乐业务总裁唐·马特里克(Don Mattrick)称：“Xbox One目的是在一个强大的多功能一体设备中提供全新一代的强大的游戏、电视和娱乐。我们的独特的现代的架构将首次给客厅带来简单化，带来在游戏和娱乐之间即时进行转换的能力。”</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph FontSize="32">Microsoft</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">微软（Microsoft，NASDAQ:MSFT，HKEx: 4338)公司是世界PC(Personal Computer，个人计算机)机软件开发的先导，由比尔·盖茨与保罗·艾伦创始于1975年，总部设在华盛顿州的雷德蒙市（Redmond，邻近西雅图）。目前是全球最大的电脑软件提供商。微软公司现有雇员9万人，2012年营业额699.4亿美元，其主要产品为Windows操作系统、Internet Explorer网页浏览器及Microsoft Office办公软件套件。1999年推出了MSN Messenger网络即时信息客户程序；2001年推出Xbox游戏机，参与游戏终端机市场竞争。2012年8月23日，微软25年以来首次更换公司Logo。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">2001年，微软结合Windows 98和Windows 2000系列的优点，推出了Windows XP操作系统，XP的意思是“体验”。XP系统重点加强了安全性和稳定性，首次在Windows操作系统中集成了微软自己的防火墙产品。它还拓展了多媒体应用方面的功能。XP系统主要有家庭版和专业版两种，其中专业版保留了Windows 2000中的用户管理、组策略等安全特性，并使其更加易用。Windows XP又一次成为软件发展史上的经典之作。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">在IT软件行业流传着这样一句告诫：“永远不要去做微软想做的事情”。可见，微软的巨大潜力已经渗透到了软件界的方方面面，简直是无孔不入，而且是所向披靡。微软的巨大影响已经对软件同行构成了极大的压力，也把自己推上了反垄断法的被告位置。连多年来可靠的合作伙伴Intel也与之反目，对簿公堂。2001年9月，鉴于经济低迷，美国政府有意重振美国信息产业，拒绝拆分微软。至此，诉微软反垄断法案告一段落。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">微软联合创始人兼领袖比尔·盖茨、保罗·艾伦，两位都是世界上智力过人，才华出众的天才。保罗·艾伦的智力商数超越170， 在当微软创始人之一 比尔·盖茨今世界的天才中排名第九， 比尔盖茨智商超越160，曾经在哈佛大学读书期间，数学成绩十分突出，解决过一道世界难题，受美国科学院院士哈佛教授嘉奖，并与老师联合发表论文。 现任总裁史蒂夫·鲍尔默曾是美国数学竞赛全美前10名，美国高考SAT考试，保罗·艾伦与史蒂夫·鲍尔默更是获得了1600分的满分。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">Xbox360是世界最大的电脑软件公司微软所开发的第二代家用视频游戏主机，在开发时被称为“Xenon”、“Xbox 2”及“Xbox Next”等。微软Xbox360是唯一一款具备定时功能的游戏机，家长们可轻松设定相应游戏时间，同时也能对孩子们所玩、所观看的内容加以限制。Xbox Live诞生于2002年,是微软为其游戏主机XBOX所提供的网络服务。联机游戏：支持语音短信、私人语音聊天、个性化设置以及统一标准的好友列表。2001年公司推出的Xbox游戏机标志着公司开始进入价值上百亿美元的游戏终端市场，这个市场之前一直由索尼公司（Sony）和任天堂（Nintendo）两家公司主导。2005年11月22日，微软公司发售第二代家用视频游戏主机Xbox360。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">北京时间5月22日消息，据微软官网和路透社报道，微软5月21日正式发布了新一代的游戏主机Xbox One，微软将其定义为多功能一体的游戏和娱乐系统，强调融合TV和游戏的全娱乐体验。本次发布距微软2005年发布上一代Xbox 360以来，已经时隔8年。微软在华盛顿州雷德蒙德市的公司总部演示了Xbox One如何将用户置于所有的游戏、电视、电影、音乐、体育和Skype的中心。微软互动娱乐业务总裁唐·马特里克(Don Mattrick)称：“Xbox One目的是在一个强大的多功能一体设备中提供全新一代的强大的游戏、电视和娱乐。我们的独特的现代的架构将首次给客厅带来简单化，带来在游戏和娱乐之间即时进行转换的能力。”</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph FontSize="32">Microsoft</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">微软（Microsoft，NASDAQ:MSFT，HKEx: 4338)公司是世界PC(Personal Computer，个人计算机)机软件开发的先导，由比尔·盖茨与保罗·艾伦创始于1975年，总部设在华盛顿州的雷德蒙市（Redmond，邻近西雅图）。目前是全球最大的电脑软件提供商。微软公司现有雇员9万人，2012年营业额699.4亿美元，其主要产品为Windows操作系统、Internet Explorer网页浏览器及Microsoft Office办公软件套件。1999年推出了MSN Messenger网络即时信息客户程序；2001年推出Xbox游戏机，参与游戏终端机市场竞争。2012年8月23日，微软25年以来首次更换公司Logo。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">2001年，微软结合Windows 98和Windows 2000系列的优点，推出了Windows XP操作系统，XP的意思是“体验”。XP系统重点加强了安全性和稳定性，首次在Windows操作系统中集成了微软自己的防火墙产品。它还拓展了多媒体应用方面的功能。XP系统主要有家庭版和专业版两种，其中专业版保留了Windows 2000中的用户管理、组策略等安全特性，并使其更加易用。Windows XP又一次成为软件发展史上的经典之作。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">在IT软件行业流传着这样一句告诫：“永远不要去做微软想做的事情”。可见，微软的巨大潜力已经渗透到了软件界的方方面面，简直是无孔不入，而且是所向披靡。微软的巨大影响已经对软件同行构成了极大的压力，也把自己推上了反垄断法的被告位置。连多年来可靠的合作伙伴Intel也与之反目，对簿公堂。2001年9月，鉴于经济低迷，美国政府有意重振美国信息产业，拒绝拆分微软。至此，诉微软反垄断法案告一段落。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">微软联合创始人兼领袖比尔·盖茨、保罗·艾伦，两位都是世界上智力过人，才华出众的天才。保罗·艾伦的智力商数超越170， 在当微软创始人之一 比尔·盖茨今世界的天才中排名第九， 比尔盖茨智商超越160，曾经在哈佛大学读书期间，数学成绩十分突出，解决过一道世界难题，受美国科学院院士哈佛教授嘉奖，并与老师联合发表论文。 现任总裁史蒂夫·鲍尔默曾是美国数学竞赛全美前10名，美国高考SAT考试，保罗·艾伦与史蒂夫·鲍尔默更是获得了1600分的满分。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">Xbox360是世界最大的电脑软件公司微软所开发的第二代家用视频游戏主机，在开发时被称为“Xenon”、“Xbox 2”及“Xbox Next”等。微软Xbox360是唯一一款具备定时功能的游戏机，家长们可轻松设定相应游戏时间，同时也能对孩子们所玩、所观看的内容加以限制。Xbox Live诞生于2002年,是微软为其游戏主机XBOX所提供的网络服务。联机游戏：支持语音短信、私人语音聊天、个性化设置以及统一标准的好友列表。2001年公司推出的Xbox游戏机标志着公司开始进入价值上百亿美元的游戏终端市场，这个市场之前一直由索尼公司（Sony）和任天堂（Nintendo）两家公司主导。2005年11月22日，微软公司发售第二代家用视频游戏主机Xbox360。</Paragraph>
+            <Paragraph></Paragraph>
+            <Paragraph TextIndent="36">北京时间5月22日消息，据微软官网和路透社报道，微软5月21日正式发布了新一代的游戏主机Xbox One，微软将其定义为多功能一体的游戏和娱乐系统，强调融合TV和游戏的全娱乐体验。本次发布距微软2005年发布上一代Xbox 360以来，已经时隔8年。微软在华盛顿州雷德蒙德市的公司总部演示了Xbox One如何将用户置于所有的游戏、电视、电影、音乐、体育和Skype的中心。微软互动娱乐业务总裁唐·马特里克(Don Mattrick)称：“Xbox One目的是在一个强大的多功能一体设备中提供全新一代的强大的游戏、电视和娱乐。我们的独特的现代的架构将首次给客厅带来简单化，带来在游戏和娱乐之间即时进行转换的能力。”</Paragraph>
+            <Paragraph></Paragraph>
+
+            <Paragraph TextIndent="36">新一代 Kinect 将视频摄影解析度提高到 1080p，视角较前一代宽阔 60 ％，深度侦测改採更精确的 Time of Flight（TOF）技术，通过发射与感测红外线反射的时间来建构场景的深度资讯，连衣服的皱褶凹凸都能掌握，搭配可见光与红外线两组感测器，提供不受环境光线影响的感测能力。借由更精确的深度资讯，新一代 Kinect 得以更精确掌握人体关节的运动，连大拇指与手掌的开合都能判断。不只是姿势，还可以通过模拟计算来掌握肌肉的施力与重心的转移。可以通过脉搏所造成的肤下血管反射可见光与红外线变化来掌握脉搏，具备脸部辨识与表情判断的能力。新一代 Kinect 除了反应更快速、侦测更精确之外，同时感测人数也从前一代的最多2人扩增为最多6人，还可以根据脸部辨识来掌握不同玩家的所在位置，提供多人同乐更多的可能性。</Paragraph>
+        </RichTextBlock>
+        <RichTextBlockOverflow x:Name="imageLeftText" OverflowContentTarget="{Binding ElementName=textOverflow}" Grid.Row="2" Grid.Column="0"/>
+        <Image Source="ms-appx:///Assets/Logo.png" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" Margin="10"/>
+        <RichTextBlockOverflow x:Name="textOverflow" Grid.Row="3" Grid.ColumnSpan="2"/>
+
+        <!--页脚，仅最后一页需要页脚-->
+        <StackPanel x:Name="footer" Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Height="60" Visibility="Collapsed">
+            <Image Source="ms-appx:///Assets/Logo.png" HorizontalAlignment="Left" />
+            <RichTextBlock Foreground="Black" FontSize="16" TextAlignment="Left" Margin="10 0 0 0">
+                <Paragraph>http://webabcd.cnblogs.com/</Paragraph>
+            </RichTextBlock>
+        </StackPanel>
+    </Grid>
+
+</Page>

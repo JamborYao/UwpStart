@@ -1,0 +1,37 @@
+﻿<Page
+    x:Class="UWPStart.ThreadRelated.ContinuationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPStart.ThreadRelated"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+
+    <!--
+        需要打印的文档的溢出内容
+    -->
+    <Grid x:Name="printableArea">
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--正文-->
+        <RichTextBlockOverflow x:Name="textOverflow" Grid.Row="0" Grid.Column="0"></RichTextBlockOverflow>
+
+        <!--页脚，仅最后一页需要页脚-->
+        <StackPanel x:Name="footer" Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Height="60" Visibility="Collapsed">
+            <Image Source="ms-appx:///Assets/Logo.png" HorizontalAlignment="Left" />
+            <RichTextBlock Foreground="Black" FontSize="16" TextAlignment="Left" Margin="10 0 0 0">
+                <Paragraph>http://webabcd.cnblogs.com/</Paragraph>
+            </RichTextBlock>
+        </StackPanel>
+
+    </Grid>
+
+</Page>

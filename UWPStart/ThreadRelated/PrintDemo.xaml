@@ -1,0 +1,23 @@
+﻿<Page
+    x:Class="UWPStart.ThreadRelated.PrintDemo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPStart.ThreadRelated"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="Transparent">
+        <StackPanel Margin="120 0 0 0">
+
+            <Button Name="btnPrint" Content="print" Click="btnPrint_Click" />
+
+            <!--
+                printingRoot 保存的是发送到打印机的打印内容
+                本例的打印内容来自 PrintPage.xaml，溢出内容来自 ContinuationPage.xaml
+            -->
+            <Canvas x:Name="printingRoot" Opacity="0" />
+
+        </StackPanel>
+    </Grid>
+</Page>
