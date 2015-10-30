@@ -10,6 +10,15 @@
     <Grid Background="Transparent">
         <StackPanel Margin="120 0 0 0">
 
+            <CheckBox x:Name="chButton" Click="chButton_Click" >
+                <CheckBox.Template>
+                    <ControlTemplate>
+                        <Button>
+                            mytest
+                        </Button>
+                    </ControlTemplate>
+                </CheckBox.Template>
+            </CheckBox>
             <Button Name="btnPrint" Content="print" Click="btnPrint_Click" />
 
             <!--
