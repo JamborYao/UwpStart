@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="NotificationBackground.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RawNotification.cs" />
     <Compile Include="ToastBackgroundTask.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

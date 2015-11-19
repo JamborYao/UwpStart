@@ -13,6 +13,7 @@ namespace SendNotification
         private const string clientSecret = "lw6IVYDiA7R3ZJuJCyw8AmljgStCFSMi";
         static void Main(string[] args)
         {
+           
             while (true)
             {
                 string action = "";

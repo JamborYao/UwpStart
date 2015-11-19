@@ -24,6 +24,7 @@ using System.Collections.ObjectModel;
 using CSDNServices;
 using Windows.UI.ViewManagement;
 using Windows.Graphics.Display;
+using Windows.Storage;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -46,7 +47,8 @@ namespace UWPStart.Pages
             this.Loaded += CSDNTool_Loaded;
             csdnThreads = new ObservableCollection<ThreadsDetail>();
             RegisterTask();
-         
+          
+           
 
         }
         //private void RegisterBackgroundTask(object sender, RoutedEventArgs e)
@@ -88,7 +90,8 @@ namespace UWPStart.Pages
             BackgroundTaskCompletedEventHandler completeHandler
             )
         {
-            var builder = new BackgroundTaskBuilder();
+            
+                var builder = new BackgroundTaskBuilder();
             builder.Name = name;
             builder.TaskEntryPoint = taskEntryPoint;
             builder.SetTrigger(trigger);
@@ -108,6 +111,7 @@ namespace UWPStart.Pages
         {
             throw new NotImplementedException();
         }
+       
 
         public void RegisterTask()
         {
@@ -132,6 +136,7 @@ namespace UWPStart.Pages
                   condition: null,
                   completeHandler: ToastTask_Completed
                   );
+                RegisterBackgroundTask("Tasks.RawNotificationTask", "RawTask", new PushNotificationTrigger(), null, Raw_Completed);
             }
         }
         private void ToastTask_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
@@ -142,7 +147,15 @@ namespace UWPStart.Pages
         {
             Debug.WriteLine("my task " + args.Progress + "%" + "downloaded!");
         }
+        private async void Raw_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
+        {
+            
+            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                tbRawMessage.Text = ApplicationData.Current.LocalSettings.Values["RawTask"].ToString();
+            });
 
+        }
         private void Task_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
         {
             Debug.WriteLine("my task complete");

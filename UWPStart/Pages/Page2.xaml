@@ -9,5 +9,14 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Text="Page 2" TextAlignment="Right" x:Name="showText"></TextBlock>
+        <Grid>
+            <Ellipse Fill="Yellow" Height="200" Width="200" Stroke="Blue"
+StrokeThickness="70" StrokeDashArray="1">
+                
+            </Ellipse>
+
+            <ListView x:Name="myListView"></ListView>
+            <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="480,80,0,0" VerticalAlignment="Top" Click="button_Click"/>
+        </Grid> 
     </Grid>
 </Page>

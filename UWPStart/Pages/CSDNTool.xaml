@@ -29,7 +29,9 @@
         <Grid Grid.Row="1" Margin="10,10,10,10" Background="#FF0F7878" BorderThickness="1" CornerRadius="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
                 <TextBlock x:Name="startDateText"  VerticalAlignment="Center" Text="Start Date: " ></TextBlock>
@@ -37,8 +39,14 @@
                 <TextBlock x:Name="endDateText" Text="End Date: " Margin="10 0 0 0"  VerticalAlignment="Center"></TextBlock>
                 <CalendarDatePicker x:Name="endDate"/>
                 <Button Content="Query" Click="Button_Click" Margin="10 0 0 0"/>
+              </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock x:Name="RawMessage" Text="Received Raw Message: " Margin="10 0 0 0"  VerticalAlignment="Center"></TextBlock>
+                <TextBox x:Name="tbRawMessage" Width="300" ></TextBox>
             </StackPanel>
-            <StackPanel Grid.Row="1">
+           
+
+            <StackPanel Grid.Row="2">
                 <TextBlock Text="please join in fareast domain to get all threads!" Foreground="Red" Visibility="Collapsed" x:Name="warningText"></TextBlock>
 
                 <GridView  x:Name="viewThreads" Margin="10 10 0 0"  ItemClick="viewThreads_ItemClick" IsItemClickEnabled="True" SizeChanged="viewThreads_SizeChanged">

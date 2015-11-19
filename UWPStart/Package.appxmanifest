@@ -24,15 +24,20 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.NotificationBackground">
+        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.RawNotificationTask">
           <BackgroundTasks>
-            <Task Type="systemEvent" />
             <Task Type="pushNotification" />
           </BackgroundTasks>
         </Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.ToastBackgroundTask">
           <BackgroundTasks>
             <Task Type="systemEvent" />
+          </BackgroundTasks>
+        </Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.NotificationBackground">
+          <BackgroundTasks>
+            <Task Type="systemEvent" />
+            <Task Type="pushNotification" />
           </BackgroundTasks>
         </Extension>
       </Extensions>

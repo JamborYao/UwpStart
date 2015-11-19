@@ -27,7 +27,8 @@ namespace UWPStart.Common
         {          
             Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
             badgeDOM.LoadXml(string.Format(Common.NotificationXML.ToastInternetXML,title,message));
-            ToastNotification toast = new ToastNotification(badgeDOM);             
+            ToastNotification toast = new ToastNotification(badgeDOM);
+             
             ToastNotificationManager.CreateToastNotifier().Show(toast);
             
         }

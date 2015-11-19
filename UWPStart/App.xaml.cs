@@ -87,7 +87,7 @@ namespace UWPStart
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(ThreadRelated.PrintDemo), e.Arguments);
+                rootFrame.Navigate(typeof(Pages.CSDNTool), e.Arguments);
                 
             }
             // Ensure the current window is active
@@ -121,7 +121,9 @@ namespace UWPStart
         private async void InitNotificationsAsync()
         {
             var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+            var rul = channel.Uri;
 
+            Debugger.Break();
             var hub = new NotificationHub("uwpstart", "Endpoint=sb://jamobilehub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=Lcai4r4yWy6SGWhqcfCjlhkRrK0RKL5bjM8HjD63KBA=");
             var tags = new string[2];            
             tags[0] = "MSDN";
@@ -136,9 +138,33 @@ namespace UWPStart
             channel.PushNotificationReceived += Channel_PushNotificationReceived;
         }
 
-        private void Channel_PushNotificationReceived(PushNotificationChannel sender, PushNotificationReceivedEventArgs args)
+        private void Channel_PushNotificationReceived(PushNotificationChannel sender, PushNotificationReceivedEventArgs e)
         {
-            Common.Notifications.UpdateTile("new threads coming!");
+            String notificationContent = String.Empty;
+
+           // var tag = e.ToastNotification.Tag;
+            switch (e.NotificationType)
+            {
+                case PushNotificationType.Badge:
+                    notificationContent = e.BadgeNotification.Content.GetXml();
+                    break;
+
+                case PushNotificationType.Tile:
+                    notificationContent = e.TileNotification.Content.GetXml();
+                    break;
+
+                case PushNotificationType.Toast:
+                    notificationContent = e.ToastNotification.Content.GetXml();
+                    break;
+
+                case PushNotificationType.Raw:
+                    notificationContent = e.RawNotification.Content;
+                    break;
+            }
+
+           // e.Cancel = true;
+
+            Common.Notifications.UpdateTile("new threads coming2!");
         }
     }
 }
