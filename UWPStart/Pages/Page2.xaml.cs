@@ -77,5 +77,28 @@ namespace UWPStart.Pages
         {
             throw new NotImplementedException();
         }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+           // FrameworkElement s = sender as FrameworkElement;
+            FrameworkElement s = Frame.FindName("hylinkbtn") as FrameworkElement;
+            Flyout.ShowAttachedFlyout(s);
+        }
+
+        private void textBox_CandidateWindowBoundsChanged(TextBox sender, CandidateWindowBoundsChangedEventArgs args)
+        {
+
+        }
+
+        private void OnCandidateWindowBoundsChanged(TextBox sender, CandidateWindowBoundsChangedEventArgs args)
+        {
+            textBox1.Margin = new Thickness
+            {
+                Left = 0,
+                Top = 0,
+                Right = 0,
+                Bottom = Math.Max(0, args.Bounds.Bottom - textBox1.ActualHeight)
+            };
+        }
     }
 }

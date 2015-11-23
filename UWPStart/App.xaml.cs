@@ -61,7 +61,7 @@ namespace UWPStart
                 this.DebugSettings.EnableFrameRateCounter = false;
             }
 #endif
-
+            var value = e.Arguments;
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -87,8 +87,14 @@ namespace UWPStart
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(Pages.CSDNTool), e.Arguments);
                 
+                    rootFrame.Navigate(typeof(Pages.CSDNTool), e.Arguments);
+                
+
+            }
+            if (value == "Pages2")
+            {
+                rootFrame.Navigate(typeof(Pages.Page2), e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();
@@ -122,6 +128,8 @@ namespace UWPStart
         {
             var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
             var rul = channel.Uri;
+
+
 
             Debugger.Break();
             var hub = new NotificationHub("uwpstart", "Endpoint=sb://jamobilehub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=Lcai4r4yWy6SGWhqcfCjlhkRrK0RKL5bjM8HjD63KBA=");
@@ -166,5 +174,7 @@ namespace UWPStart
 
             Common.Notifications.UpdateTile("new threads coming2!");
         }
+
+       
     }
 }

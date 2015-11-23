@@ -14,23 +14,23 @@ namespace SendNotification
         static void Main(string[] args)
         {
            
-            while (true)
-            {
-                string action = "";
-                Console.WriteLine("Please input the team new thread belong to:" );
-                string name = Console.ReadLine();
-                Console.WriteLine("Please input the message you want to notify:");
-                string message = Console.ReadLine();
-                //Console.WriteLine("Need action? yes or no");
-                //string action = Console.ReadLine();               
-                SendNotificationAsync(message,name,action);               
-                Console.WriteLine("Please input 'q' to exit"); 
-                string exit = Console.ReadLine();
-                if (exit == "q")
-                {
-                  Environment.Exit(0);
-                }        
-            }
+            //while (true)
+            //{
+            //    string action = "";
+            //    Console.WriteLine("Please input the team new thread belong to:" );
+            //    string name = Console.ReadLine();
+            //    Console.WriteLine("Please input the message you want to notify:");
+            //    string message = Console.ReadLine();
+            //    //Console.WriteLine("Need action? yes or no");
+            //    //string action = Console.ReadLine();               
+            //    SendNotificationAsync(message,name,action);               
+            //    Console.WriteLine("Please input 'q' to exit"); 
+            //    string exit = Console.ReadLine();
+            //    if (exit == "q")
+            //    {
+            //      Environment.Exit(0);
+            //    }        
+            //}
             
         }
         private static async void SendNotificationAsync(string message,string name,string action)

@@ -7,16 +7,34 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="mygrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Text="Page 2" TextAlignment="Right" x:Name="showText"></TextBlock>
         <Grid>
             <Ellipse Fill="Yellow" Height="200" Width="200" Stroke="Blue"
 StrokeThickness="70" StrokeDashArray="1">
                 
             </Ellipse>
+            
 
             <ListView x:Name="myListView"></ListView>
             <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="480,80,0,0" VerticalAlignment="Top" Click="button_Click"/>
+            <!--<HyperlinkButton x:Name="hylinkbtn" Content="HyperlinkButton" Margin="10,58,0,0" VerticalAlignment="Top" Foreground="#FF2688D6" Click="HyperlinkButton_Click">
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout>
+                        <TextBlock Text="this is test flyout"/>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
+            </HyperlinkButton>
+            <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="24,26,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" CandidateWindowBoundsChanged="textBox_CandidateWindowBoundsChanged"/>-->
+
+            <StackPanel>
+                <TextBox x:Name="textBox1" Width="1000" HorizontalAlignment="Left" 
+                 DesiredCandidateWindowAlignment="BottomEdge"
+                 CandidateWindowBoundsChanged="OnCandidateWindowBoundsChanged"/>
+                <Rectangle Height="100" Width="100" Fill="Red" 
+                   HorizontalAlignment="Left"/>
+            </StackPanel>
+
         </Grid> 
     </Grid>
 </Page>

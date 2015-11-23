@@ -18,24 +18,29 @@ namespace SendNotification
         public const string scope = "notify.windows.com";
         public const string grant_type = "client_credentials";
 
-        public string GetTokenFromWNS()
+        public void GetTokenFromWNS(out Dictionary<FlowSteps,string> steps)
         {
+            steps = new Dictionary<FlowSteps, string>();
             string url = "https://login.live.com/accesstoken.srf";
+            steps[FlowSteps.TokenUrl] = url;
             string data = string.Format("grant_type={0}&client_id={1}&client_secret={2}&scope={3}",
                 grant_type,
                HttpUtility.UrlEncode(packageSID),
                clientSecret,
                scope);
-
+            steps[FlowSteps.SID] = packageSID;
+            steps[FlowSteps.ClientSecret] = clientSecret;
+            //steps.Add("");
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+        
             request.ContentType = "application/x-www-form-urlencoded";
             request.Method = "POST";
             byte[] bytes = Encoding.ASCII.GetBytes(data);
             request.ContentLength = bytes.Length;
             using (Stream stream = request.GetRequestStream())
             {
-              
-               
+
+
                 stream.Write(bytes, 0, bytes.Length);
             }
             string result = "";
@@ -48,9 +53,10 @@ namespace SendNotification
 
                 }
             }
-            
 
-            return GetOAuthTokenFromJson(result).AccessToken;
+            steps[FlowSteps.Token]= GetOAuthTokenFromJson(result).AccessToken;
+            //return GetOAuthTokenFromJson(result).AccessToken;
+            // steps["token"]= GetOAuthTokenFromJson(result).AccessToken;
 
         }
         private OAuthToken GetOAuthTokenFromJson(string jsonString)
@@ -63,23 +69,27 @@ namespace SendNotification
             }
         }
 
-        public void SendNotifytoWNS(string content,string NotififyType,string url)
+        public Dictionary<FlowSteps, string> SendNotifytoWNS(string content, string NotififyType, string url)
         {
+            Dictionary<FlowSteps, string> steps;
            
             //try
             //{
-                var accessToken = "EgAdAQMAAAAEgAAAC4AAE8FBsxWhRUmFugYgVuldsgabQja9FbsUQ7uJRZouuZN1aXWMFif+/md58HTGlzcrKzdTHsn8rTyguNT+r4cU3hS7dTOmBrTZycvOlNoeOF28+NLSnwzQ2JBk6NoXAS0wsomYqETHrhf1e7S5j9w+RYnKWsBf48vNdkwkfdg0qpKMAFoAjAAAAAAAXwIXSHkcTFZ5HExW60gEABAAMTY3LjIyMC4yMzIuMTY5AAAAAABcAG1zLWFwcDovL3MtMS0xNS0yLTQwMjk2MjIwNi0xODE4ODkxMjUtMjc4NDMyNzAyMy0zMDE3NDY3NjExLTEyNDY2NTA1NS0yNjA4NTg5NDQ5LTE1ODgwODQ1ODkA";
-                accessToken = GetTokenFromWNS();
-                var toast = string.Format(@"<toast><visual><binding template=""ToastText01""><text id=""1"">{0}</text></binding></visual></toast>", "hello world!!!");
-              
-          
-           
-        byte[] contentInBytes = Encoding.UTF8.GetBytes(content);
-         
+            var accessToken = "EgAdAQMAAAAEgAAAC4AAE8FBsxWhRUmFugYgVuldsgabQja9FbsUQ7uJRZouuZN1aXWMFif+/md58HTGlzcrKzdTHsn8rTyguNT+r4cU3hS7dTOmBrTZycvOlNoeOF28+NLSnwzQ2JBk6NoXAS0wsomYqETHrhf1e7S5j9w+RYnKWsBf48vNdkwkfdg0qpKMAFoAjAAAAAAAXwIXSHkcTFZ5HExW60gEABAAMTY3LjIyMC4yMzIuMTY5AAAAAABcAG1zLWFwcDovL3MtMS0xNS0yLTQwMjk2MjIwNi0xODE4ODkxMjUtMjc4NDMyNzAyMy0zMDE3NDY3NjExLTEyNDY2NTA1NS0yNjA4NTg5NDQ5LTE1ODgwODQ1ODkA";
+            GetTokenFromWNS(out steps);
+            var toast = string.Format(@"<toast><visual><binding template=""ToastText01""><text id=""1"">{0}</text></binding></visual></toast>", "hello world!!!");
+            steps[FlowSteps.RequestContent] = content;
+            accessToken = steps[FlowSteps.Token];
+
+            byte[] contentInBytes = Encoding.UTF8.GetBytes(content);
+
 
             HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
-                request.Method = "POST";
-                request.ContentLength = contentInBytes.Length;
+            steps[FlowSteps.RequestURL] = url;
+            request.Method = "POST";
+            request.Headers.Add("X-WNS-RequestForStatus","true");
+
+            request.ContentLength = contentInBytes.Length;
             switch (NotififyType)
             {
                 case "toast":
@@ -99,23 +109,24 @@ namespace SendNotification
                 case "badge":
                     request.Headers.Add("X-WNS-Type", "wns/badge");
                     break;
-                    
+
             }
-               
-                //request.Headers.Add("X-WNS-Tag","msdn");
-             
-                request.Headers.Add("Authorization", String.Format("Bearer {0}", accessToken));
 
-                using (Stream requestStream = request.GetRequestStream())
-                    requestStream.Write(contentInBytes, 0, contentInBytes.Length);
+            //request.Headers.Add("X-WNS-Tag","msdn");
 
-                using (HttpWebResponse webResponse = (HttpWebResponse)request.GetResponse())
-                {
-                    string state = webResponse.StatusCode.ToString();
-                    StreamReader reader = new StreamReader(webResponse.GetResponseStream());
-                    string result = reader.ReadToEnd();
-                    string staus = webResponse.Headers["X-WNS-DeviceConnectionStatus"];
-                }
+            request.Headers.Add("Authorization", String.Format("Bearer {0}", accessToken));
+
+            using (Stream requestStream = request.GetRequestStream())
+                requestStream.Write(contentInBytes, 0, contentInBytes.Length);
+
+            using (HttpWebResponse webResponse = (HttpWebResponse)request.GetResponse())
+            {
+                string state = webResponse.StatusCode.ToString();
+                StreamReader reader = new StreamReader(webResponse.GetResponseStream());
+                string result = reader.ReadToEnd();
+                string staus = webResponse.Headers["X-WNS-DeviceConnectionStatus"];
+                steps[FlowSteps.StateCode] = state+webResponse.Headers["X-WNS-Status"]+ "message ID"+webResponse.Headers["X-WNS-Msg-ID"]+"DeviceConnectionStatus"+staus;
+            }
             //}
             //catch (WebException webException)
             //{
@@ -127,8 +138,9 @@ namespace SendNotification
             //                       };
 
             //}
-        }
-        }
+            return steps;
+
+        } }
     [DataContract]
     public class OAuthToken
     {

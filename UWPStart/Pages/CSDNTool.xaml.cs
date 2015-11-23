@@ -47,10 +47,22 @@ namespace UWPStart.Pages
             this.Loaded += CSDNTool_Loaded;
             csdnThreads = new ObservableCollection<ThreadsDetail>();
             RegisterTask();
+            //var timer = new DispatcherTimer();
+            //timer.Tick += Timer_Tick;
+            //timer.Interval = new TimeSpan(0, 0, 10);
+            //timer.Start();
           
-           
+          
 
         }
+
+       
+
+        private void Timer_Tick(object sender, object e)
+        {
+            throw new NotImplementedException();
+        }
+
         //private void RegisterBackgroundTask(object sender, RoutedEventArgs e)
         //{
         //    RegisterBackgroundTask("UWPStart.Common.NotifyBackground",
@@ -201,7 +213,25 @@ namespace UWPStart.Pages
 
         private void sendToast_Click(object sender, RoutedEventArgs e)
         {
-            Common.Notifications.SendToastWithActionNotification(Common.NotificationXML.ToastWithActionXML, null);
+            //Common.Notifications.SendToastWithActionNotification(Common.NotificationXML.ToastWithActionXML, null);
+
+            Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
+            badgeDOM.LoadXml(string.Format(Common.NotificationXML.ToastInternetXML, "test", "testa"));
+            ToastNotification toast = new ToastNotification(badgeDOM);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
+            toast.Activated += Toast_Activated1;
+            toast.SuppressPopup = true;
+        }
+
+        private async void Toast_Activated1(ToastNotification sender, object args)
+        {
+          var value=  (args as ToastActivatedEventArgs).Arguments;
+            if (value == "Pages2")
+            {
+                await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    this.Frame.Navigate(typeof(Pages.Page2));
+                });
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -232,6 +262,7 @@ namespace UWPStart.Pages
             string x = await Common.HttpHelper.HttpClientGetThreads(StartDate.ToString(), EndDate.ToString());
             csdnThreads = JsonConvert.DeserializeObject<ObservableCollection<ThreadsDetail>>(x);
             viewThreads.ItemsSource = csdnThreads;
+
             Common.Notifications.UpdateTile("Total " + csdnThreads.Count ?? 0 + "threads!");
             foreach (var item in csdnThreads)
             {

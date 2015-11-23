@@ -53,7 +53,7 @@ namespace UWPStart.Common
            + "  </actions>"         
            + "</toast>";
         public static string ToastInternetXML =
-               "<toast>"
+               "<toast launch=\"Pages2\">"
                + "  <visual>"
                + "    <binding template='ToastGeneric'>"
                + "      <text>{0}</text>"
