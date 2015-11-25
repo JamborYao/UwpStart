@@ -93,10 +93,15 @@ namespace UWPStart.Pages
 
         private void UnregisterBackgroundTask(object sender, RoutedEventArgs e)
         {
-            foreach (var cur in BackgroundTaskRegistration.AllTasks)
-            {
-                cur.Value.Unregister(true);
-            }
+            //foreach (var cur in BackgroundTaskRegistration.AllTasks)
+            //{
+            //    cur.Value.Unregister(true);
+            //}
+
+            System.Uri url = new System.Uri("http://periodicnotification.azurewebsites.net/tile1.xml");
+            //TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
+            TileUpdateManager.CreateTileUpdaterForApplication().StartPeriodicUpdate(url, PeriodicUpdateRecurrence.HalfHour);
+
         }
         public static void RegisterBackgroundTask(String taskEntryPoint, String name, IBackgroundTrigger trigger, IBackgroundCondition condition,
             BackgroundTaskCompletedEventHandler completeHandler
@@ -220,12 +225,15 @@ namespace UWPStart.Pages
             ToastNotification toast = new ToastNotification(badgeDOM);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
             toast.Activated += Toast_Activated1;
-            toast.SuppressPopup = true;
+           // toast.SuppressPopup = true;
         }
 
         private async void Toast_Activated1(ToastNotification sender, object args)
         {
-          var value=  (args as ToastActivatedEventArgs).Arguments;
+            ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
+            settings.Values["toastlog"] = settings.Values["toastlog"] + "**************" + "toast actived event active!";
+            // App.logString += "toast actived event active!";
+            var value=  (args as ToastActivatedEventArgs).Arguments;
             if (value == "Pages2")
             {
                 await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
@@ -339,6 +347,17 @@ namespace UWPStart.Pages
                 id = offtopics.First().Key;
                 offtopics.Remove(id);
             }
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
+            badgeDOM.LoadXml(string.Format(Common.NotificationXML.ToastInternetXML, "test", "testa"));
+            DateTime starttime = DateTime.Now.AddSeconds(10);
+            ScheduledToastNotification toast = new ScheduledToastNotification(badgeDOM, starttime);
+            ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast);
+           // toast.Activated += Toast_Activated1;
+          //  toast.SuppressPopup = true;
         }
     }
 }

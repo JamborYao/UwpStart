@@ -11,6 +11,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Networking.PushNotifications;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -25,8 +26,10 @@ namespace UWPStart
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
+    /// 
     sealed partial class App : Application
     {
+       
         public static MobileServiceClient MobileService = new MobileServiceClient(
                 "https://jamobile.azure-mobile.net/",
                 "HbVzicpbRTzhPVxNHagxFvnkCIWcev26"
@@ -42,7 +45,9 @@ namespace UWPStart
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            
+            //  ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
+            ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
+            settings.Values["toastlog"] = "";
         }
 
       
@@ -54,6 +59,8 @@ namespace UWPStart
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
+            settings.Values["toastlog"] = "on launched event active!";
             InitNotificationsAsync();
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -99,13 +106,18 @@ namespace UWPStart
             // Ensure the current window is active
             Window.Current.Activate();
         }
-
-        /// <summary>
-        /// Invoked when Navigation to a certain page fails
-        /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
+            settings.Values["toastlog"] = settings.Values["toastlog"]+"**************"+ "on Actived event active!";
+            // logString += "on Actived event active!";
+        }
+            /// <summary>
+            /// Invoked when Navigation to a certain page fails
+            /// </summary>
+            /// <param name="sender">The Frame which failed navigation</param>
+            /// <param name="e">Details about the navigation failure</param>
+            void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
@@ -121,6 +133,8 @@ namespace UWPStart
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
+            ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
+           // settings.Values["toastlog"] = App.logString;
             deferral.Complete();
         }
 
@@ -148,6 +162,9 @@ namespace UWPStart
 
         private void Channel_PushNotificationReceived(PushNotificationChannel sender, PushNotificationReceivedEventArgs e)
         {
+            ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
+            settings.Values["toastlog"] = settings.Values["toastlog"] + "**************" + "PushNotificationReceived event active!";
+            //logString += "PushNotificationReceived event active!";
             String notificationContent = String.Empty;
 
            // var tag = e.ToastNotification.Tag;
