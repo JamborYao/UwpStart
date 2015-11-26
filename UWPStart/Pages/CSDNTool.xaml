@@ -39,7 +39,8 @@
                 <TextBlock x:Name="endDateText" Text="End Date: " Margin="10 0 0 0"  VerticalAlignment="Center"></TextBlock>
                 <CalendarDatePicker x:Name="endDate"/>
                 <Button Content="Query" Click="Button_Click" Margin="10 0 0 0"/>
-              </StackPanel>
+                <Button Content="failure" Click="failure_click" Margin="10 0 0 0"/>
+            </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <TextBlock x:Name="RawMessage" Text="Received Raw Message: " Margin="10 0 0 0"  VerticalAlignment="Center"></TextBlock>
                 <TextBox x:Name="tbRawMessage" Width="300" ></TextBox>

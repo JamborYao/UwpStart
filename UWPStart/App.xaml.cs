@@ -47,7 +47,7 @@ namespace UWPStart
             this.Suspending += OnSuspending;
             //  ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
             ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
-            settings.Values["toastlog"] = "";
+            settings.Values["toastlog"] = "init*********";
         }
 
       
@@ -60,7 +60,7 @@ namespace UWPStart
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
-            settings.Values["toastlog"] = "on launched event active!";
+            settings.Values["toastlog"] +=e.Kind+ "on launched event active! "+ DateTime.Now.ToString();
             InitNotificationsAsync();
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -109,7 +109,7 @@ namespace UWPStart
         protected override void OnActivated(IActivatedEventArgs args)
         {
             ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
-            settings.Values["toastlog"] = settings.Values["toastlog"]+"**************"+ "on Actived event active!";
+            settings.Values["toastlog"] = settings.Values["toastlog"]+"**************"+ args.Kind+"on Actived event active!" + DateTime.Now.ToString();
             // logString += "on Actived event active!";
         }
             /// <summary>
