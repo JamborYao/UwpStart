@@ -35,7 +35,7 @@ namespace SendNotification
         
             request.ContentType = "application/x-www-form-urlencoded";
             request.Method = "POST";
-            byte[] bytes = Encoding.ASCII.GetBytes(data);
+            byte[] bytes = Encoding.ASCII.GetBytes(data); 
             request.ContentLength = bytes.Length;
             using (Stream stream = request.GetRequestStream())
             {
