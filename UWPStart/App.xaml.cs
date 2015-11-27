@@ -29,7 +29,7 @@ namespace UWPStart
     /// 
     sealed partial class App : Application
     {
-       
+
         public static MobileServiceClient MobileService = new MobileServiceClient(
                 "https://jamobile.azure-mobile.net/",
                 "HbVzicpbRTzhPVxNHagxFvnkCIWcev26"
@@ -50,7 +50,7 @@ namespace UWPStart
             settings.Values["toastlog"] = "init*********";
         }
 
-      
+
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -59,8 +59,9 @@ namespace UWPStart
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+
             ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
-            settings.Values["toastlog"] +=e.Kind+ "on launched event active! "+ DateTime.Now.ToString();
+            settings.Values["toastlog"] += e.Kind + "on launched event active! " + DateTime.Now.ToString();
             InitNotificationsAsync();
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -84,7 +85,7 @@ namespace UWPStart
                 {
                     //TODO: Load state from previously suspended application
                 }
-                
+
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
@@ -94,9 +95,9 @@ namespace UWPStart
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                
-                    rootFrame.Navigate(typeof(Pages.CSDNTool), e.Arguments);
-                
+
+                rootFrame.Navigate(typeof(Pages.CSDNTool), e.Arguments);
+
 
             }
             if (value == "Pages2")
@@ -108,16 +109,26 @@ namespace UWPStart
         }
         protected override void OnActivated(IActivatedEventArgs args)
         {
-            ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
-            settings.Values["toastlog"] = settings.Values["toastlog"]+"**************"+ args.Kind+"on Actived event active!" + DateTime.Now.ToString();
-            // logString += "on Actived event active!";
+            if (args.Kind == ActivationKind.ToastNotification)
+            {
+
+                ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
+                settings.Values["toastlog"] = settings.Values["toastlog"] + "**************" + args.Kind + "on Actived event active!" + DateTime.Now.ToString();
+                string value =(args as ToastNotificationActivatedEventArgs).Argument;
+                // logString += "on Actived event active!";
+                if (value == "Page2")
+                {
+                    Frame rootFrame = Window.Current.Content as Frame;
+                    rootFrame.Navigate(typeof(Pages.Page2),value);
+                }
+            }
         }
-            /// <summary>
-            /// Invoked when Navigation to a certain page fails
-            /// </summary>
-            /// <param name="sender">The Frame which failed navigation</param>
-            /// <param name="e">Details about the navigation failure</param>
-            void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        /// <summary>
+        /// Invoked when Navigation to a certain page fails
+        /// </summary>
+        /// <param name="sender">The Frame which failed navigation</param>
+        /// <param name="e">Details about the navigation failure</param>
+        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
@@ -134,7 +145,7 @@ namespace UWPStart
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
-           // settings.Values["toastlog"] = App.logString;
+            // settings.Values["toastlog"] = App.logString;
             deferral.Complete();
         }
 
@@ -147,13 +158,13 @@ namespace UWPStart
 
             Debugger.Break();
             var hub = new NotificationHub("uwpstart", "Endpoint=sb://jamobilehub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=Lcai4r4yWy6SGWhqcfCjlhkRrK0RKL5bjM8HjD63KBA=");
-            var tags = new string[2];            
+            var tags = new string[2];
             tags[0] = "MSDN";
             tags[1] = "movies";
             var result = await hub.RegisterNativeAsync(channel.Uri, tags);
-           
+
             if (result.RegistrationId != null)
-            {               
+            {
                 Debug.WriteLine("Registration successful!");
             }
 
@@ -167,7 +178,7 @@ namespace UWPStart
             //logString += "PushNotificationReceived event active!";
             String notificationContent = String.Empty;
 
-           // var tag = e.ToastNotification.Tag;
+            // var tag = e.ToastNotification.Tag;
             switch (e.NotificationType)
             {
                 case PushNotificationType.Badge:
@@ -187,11 +198,11 @@ namespace UWPStart
                     break;
             }
 
-           // e.Cancel = true;
+            // e.Cancel = true;
 
             Common.Notifications.UpdateTile("new threads coming2!");
         }
 
-       
+
     }
 }

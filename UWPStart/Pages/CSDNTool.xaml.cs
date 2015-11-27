@@ -154,7 +154,7 @@ namespace UWPStart.Pages
                   completeHandler: ToastTask_Completed
                   );
                 RegisterBackgroundTask("Tasks.RawNotificationTask", "RawTask", new PushNotificationTrigger(), null, Raw_Completed);
-                RegisterBackgroundTask("Tasks.TimerToast", "TimerToast", new TimeTrigger(15,false), null, null);
+                RegisterBackgroundTask("Tasks.TimerToast", "TimerToast", new TimeTrigger(30,false), null, null);
             }
         }
         private void ToastTask_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
@@ -364,20 +364,37 @@ namespace UWPStart.Pages
           + "  </visual>"
           + "  <actions>"
           + "<input id = 'message' type = 'text' placeholderContent = 'remark:' />"
-          + "    <action content='Mark as Offtopic' arguments='offtopic'  activationType='foreground'/>" //background  foreground
+          + "    <action content='Mark as Offtopic' arguments='offtopic'  activationType='background'/>" //background  foreground
           + "    <action content='{2}' arguments='ignore' />"
           + "  </actions>"
           + "</toast>";
+
+                string ToastInternetXML =
+               "<toast launch=\"Page2\">"
+               + "  <visual>"
+               + "    <binding template='ToastGeneric'>"
+               + "      <text>{0}</text>"
+               + "      <text>{1}</text>"
+               + "    </binding>"
+               + "  </visual>"
+               + "</toast>";
+            string test= "<toast><visual><binding template=\"ToastText01\"><text id=\"1\">{0}</text></binding></visual></toast>";
+            XmlDocument xml= ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText01);
+            XmlElement root = xml.DocumentElement;
+            root.SetAttribute("launch", "Page2");
+            var toastText = xml.GetElementsByTagName("text");
+            (toastText[0] as XmlElement).InnerText = "my message";
             Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
-            badgeDOM.LoadXml(string.Format(offtopic_ToastActionXML, "test", "testa", "test"));
+            badgeDOM.LoadXml(string.Format(test, "test"));
             //Windows.Data.Xml.Dom.XmlDocument badgeDOM = new Windows.Data.Xml.Dom.XmlDocument();
             //badgeDOM.LoadXml(string.Format(Common.NotificationXML.ToastInternetXML, "test", "testa"));
-            DateTime starttime = DateTime.Now.AddSeconds(20);
+            DateTime starttime = DateTime.Now.AddSeconds(10);
             ScheduledToastNotification toast = new ScheduledToastNotification(badgeDOM, starttime);
             ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast);
-            
+          
+
            // toast.Activated += Toast_Activated1;
-          //  toast.SuppressPopup = true;
+           //  toast.SuppressPopup = true;
         }
 
         private void failure_click(object sender, RoutedEventArgs e)

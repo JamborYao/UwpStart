@@ -39,8 +39,6 @@ namespace SendNotification
             request.ContentLength = bytes.Length;
             using (Stream stream = request.GetRequestStream())
             {
-
-
                 stream.Write(bytes, 0, bytes.Length);
             }
             string result = "";
@@ -68,7 +66,7 @@ namespace SendNotification
                 return oAuthToken;
             }
         }
-
+        
         public Dictionary<FlowSteps, string> SendNotifytoWNS(string content, string NotififyType, string url)
         {
             Dictionary<FlowSteps, string> steps;
