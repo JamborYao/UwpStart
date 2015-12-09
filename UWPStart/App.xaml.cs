@@ -96,7 +96,7 @@ namespace UWPStart
                 // configuring the new page by passing required information as a navigation
                 // parameter
 
-                rootFrame.Navigate(typeof(Pages.CSDNTool), e.Arguments);
+                rootFrame.Navigate(typeof(MainPage), e.Arguments);
 
 
             }
@@ -119,7 +119,7 @@ namespace UWPStart
                 if (value == "Page2")
                 {
                     Frame rootFrame = Window.Current.Content as Frame;
-                    rootFrame.Navigate(typeof(Pages.Page2),value);
+                    rootFrame.Navigate(typeof(Pages.silderbar),value);
                 }
             }
         }
@@ -156,7 +156,7 @@ namespace UWPStart
 
 
 
-            Debugger.Break();
+        //    Debugger.Break();
             var hub = new NotificationHub("uwpstart", "Endpoint=sb://jamobilehub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=Lcai4r4yWy6SGWhqcfCjlhkRrK0RKL5bjM8HjD63KBA=");
             var tags = new string[2];
             tags[0] = "MSDN";

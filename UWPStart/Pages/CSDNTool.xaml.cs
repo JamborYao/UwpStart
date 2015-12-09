@@ -51,12 +51,19 @@ namespace UWPStart.Pages
             //timer.Tick += Timer_Tick;
             //timer.Interval = new TimeSpan(0, 0, 10);
             //timer.Start();
-          
-          
+           // StorageOperateion();
 
         }
 
-       
+        public async void StorageOperateion()
+        {
+            IStorageFolder applicationFolder = ApplicationData.Current.LocalFolder;
+            //await applicationFolder.CreateFileAsync("jambor.txt");
+
+            IStorageFile storageFile = await applicationFolder.GetFileAsync(@"test11.txt");
+
+            await storageFile.RenameAsync("jambor.txt");
+        }
 
         private void Timer_Tick(object sender, object e)
         {

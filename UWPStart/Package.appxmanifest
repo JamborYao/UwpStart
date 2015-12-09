@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="37492msdnwp.UwpStart" Publisher="CN=0CFC1B84-3BBD-482B-90FE-C72C349F6717" Version="1.1.0.0" />
+  <Identity Name="37492msdnwp.UwpStart" Publisher="CN=v-jayao" Version="1.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="7668e95f-5628-412d-9250-8ef5ef1b736e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>UwpStart</DisplayName>
@@ -24,15 +24,8 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.TimerToast">
+        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.RawNotificationTask">
           <BackgroundTasks>
-            <Task Type="systemEvent" />
-            <Task Type="timer" />
-          </BackgroundTasks>
-        </Extension>
-        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.NotificationBackground">
-          <BackgroundTasks>
-            <Task Type="systemEvent" />
             <Task Type="pushNotification" />
           </BackgroundTasks>
         </Extension>
@@ -41,9 +34,16 @@
             <Task Type="systemEvent" />
           </BackgroundTasks>
         </Extension>
-        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.RawNotificationTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.NotificationBackground">
           <BackgroundTasks>
+            <Task Type="systemEvent" />
             <Task Type="pushNotification" />
+          </BackgroundTasks>
+        </Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.TimerToast">
+          <BackgroundTasks>
+            <Task Type="systemEvent" />
+            <Task Type="timer" />
           </BackgroundTasks>
         </Extension>
       </Extensions>

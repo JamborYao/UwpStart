@@ -203,6 +203,8 @@
     <Language Code="ky-kg" InMinimumRequirementSet="true" />
     <Language Code="lb" InMinimumRequirementSet="true" />
     <Language Code="lb-lu" InMinimumRequirementSet="true" />
+    <Language Code="lo" InMinimumRequirementSet="true" />
+    <Language Code="lo-la" InMinimumRequirementSet="true" />
     <Language Code="lt" InMinimumRequirementSet="true" />
     <Language Code="lt-lt" InMinimumRequirementSet="true" />
     <Language Code="lv" InMinimumRequirementSet="true" />
@@ -366,6 +368,7 @@
     <MainPackageIdentityName>37492msdnwp.Amy123</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.BackgroundAudioUWP</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.BarryCheckForID</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.BarryCordovaTest1</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.ChangeBackground1</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.ChangeBackgroundTest</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.ChangeBackgroundTest1</MainPackageIdentityName>
@@ -385,14 +388,23 @@
     <MainPackageIdentityName>37492msdnwp.IAPBarryTestProj</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.IAPTOBETASTOREBYHERRO</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.InAppPurchase</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.MPNSDemo</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.myapp3d</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.PivotUWPApp1</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.ScreenSaverPro</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.ScrollViewer</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.ScrollViewerTest</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.SSPlayer</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.StockOverFlowPortal</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.TesPlayToolbar</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.TestMap</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.TestPrivacyPolicy</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.TestProductINAPP001</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.trialTest</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.U81DataContextDinding</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.UniversalApp01</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.UWPTestIcon</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.W81TestPrivacyPolicy</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.WillWinStoreForDelete</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.WindowsStoreApp08</MainPackageIdentityName>
   </AccountPackageIdentityNames>

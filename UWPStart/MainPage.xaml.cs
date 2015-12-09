@@ -34,7 +34,7 @@ namespace UWPStart
         {
             this.InitializeComponent();
             DataContext = new ViewModel();
-            
+            outPutView.Navigate(new Uri("https://social.msdn.microsoft.com/Profile/u/edit"));
            
         }
 
