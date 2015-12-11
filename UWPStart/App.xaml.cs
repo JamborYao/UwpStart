@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWPStart.Common;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -60,6 +61,7 @@ namespace UWPStart
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 
+
             ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
             settings.Values["toastlog"] += e.Kind + "on launched event active! " + DateTime.Now.ToString();
             InitNotificationsAsync();
@@ -81,13 +83,17 @@ namespace UWPStart
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+
+                if (e.PreviousExecutionState != ApplicationExecutionState.Running)
                 {
-                    //TODO: Load state from previously suspended application
+                    bool loadState = (e.PreviousExecutionState == ApplicationExecutionState.Terminated);
+                    ExtendedSplash extendedSplash = new ExtendedSplash(e.SplashScreen, loadState);
+                    Window.Current.Content = extendedSplash;
+
                 }
 
                 // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
+             
             }
 
             if (rootFrame.Content == null)
@@ -119,7 +125,7 @@ namespace UWPStart
                 if (value == "Page2")
                 {
                     Frame rootFrame = Window.Current.Content as Frame;
-                    rootFrame.Navigate(typeof(Pages.silderbar),value);
+                    rootFrame.Navigate(typeof(Pages.CSDNTool),value);
                 }
             }
         }
@@ -140,12 +146,14 @@ namespace UWPStart
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
             // settings.Values["toastlog"] = App.logString;
+            await SuspensionManager.SaveAsync();
+
             deferral.Complete();
         }
 
