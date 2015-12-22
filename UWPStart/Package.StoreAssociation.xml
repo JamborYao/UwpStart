@@ -358,9 +358,9 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>37492msdnwp.UwpStart</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.PushDemoNew</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>UwpStart</ReservedName>
+      <ReservedName>PushDemoNew</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
@@ -403,10 +403,11 @@
     <MainPackageIdentityName>37492msdnwp.trialTest</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.U81DataContextDinding</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.UniversalApp01</MainPackageIdentityName>
+    <MainPackageIdentityName>37492msdnwp.UwpStart</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.UWPTestIcon</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.W81TestPrivacyPolicy</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.WillWinStoreForDelete</MainPackageIdentityName>
     <MainPackageIdentityName>37492msdnwp.WindowsStoreApp08</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH6C0VT" />
+  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH5BT44" />
 </StoreAssociation>

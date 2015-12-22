@@ -17,8 +17,8 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>UWPStart_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>3EF2E4FF6EC6D75563451E1055C0DC8599F0D3F9</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>UWPStart_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>ED9B93E9061376CD61AE67DB8B09E26526087E1F</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>

@@ -13,9 +13,9 @@ namespace SendNotification
 {
     public class WNSNotification
     {
-        public const string packageSID = "ms-app://s-1-15-2-402962206-181889125-2784327023-3017467611-124665055-2608589449-1588084589";
+        public const string packageSID = "ms-app://s-1-15-2-4222701300-3819617421-3546372303-955901872-4262490533-1071502919-2139900694";
                                          
-        public const string clientSecret = "lw6IVYDiA7R3ZJuJCyw8AmljgStCFSMi";
+        public const string clientSecret = "3FQOGWyWqDPuH3mVnp73RoWgiL5Ds6yQ";
                                             
         public const string scope = "notify.windows.com";
         public const string grant_type = "client_credentials";
