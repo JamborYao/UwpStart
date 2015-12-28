@@ -19,6 +19,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using System.Net.Http;
+using Windows.ApplicationModel.DataTransfer;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -39,14 +40,22 @@ namespace UWPStart
         }
 
       
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             base.OnNavigatedTo(e);
             //vm.GetEngineers();
             //EngineersView.DataContext = vm.Engineers;   
-
+            DataPackageView dataview = Clipboard.GetContent();
+            if (dataview.Contains(StandardDataFormats.Text))
+            {
+                try
+                {
+                    httpContent.Text = await dataview.GetTextAsync();
+                }
+                catch { }
+            }
         }
 
        

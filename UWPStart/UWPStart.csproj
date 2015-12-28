@@ -115,6 +115,9 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Common\ThreadBackgroundColor.cs" />
     <Compile Include="Common\ValueConvert.cs" />
+    <Compile Include="Communicate\Socket\TcpDemo.xaml.cs">
+      <DependentUpon>TcpDemo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EnumConverter.cs" />
     <Compile Include="ExtendedSplash.xaml.cs">
       <DependentUpon>ExtendedSplash.xaml</DependentUpon>
@@ -174,6 +177,9 @@
     <Compile Include="ThreadRelated\PrintDemo.xaml.cs">
       <DependentUpon>PrintDemo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tool\CopyPast.xaml.cs">
+      <DependentUpon>CopyPast.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\ItemUserControl.xaml.cs">
       <DependentUpon>ItemUserControl.xaml</DependentUpon>
@@ -204,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Communicate\Socket\TcpDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ExtendedSplash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -270,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ThreadRelated\PrintDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\CopyPast.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

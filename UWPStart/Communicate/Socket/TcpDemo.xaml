@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="UWPStart.Communicate.Socket.TcpDemo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPStart.Communicate.Socket"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="Azure" x:Name="imageInnerGrid">
+        <StackPanel Margin="120 0 0 0" Orientation="Horizontal">
+
+            <StackPanel>
+                <Button Name="btnStartListener" Content="start a socket listener" Click="btnStartListener_Click" />
+                <Button Name="btnConnectListener" Content="connect to the socket listener" Click="btnConnectListener_Click" Margin="0 10 0 0" />
+                <Button Name="btnSendData" Content="send data" Click="btnSendData_Click" Margin="0 10 0 0" />
+                <Button Name="btnCloseSocket" Content="close server socket and client socket" Click="btnCloseSocket_Click" Margin="0 10 0 0" />
+                <Image x:Name="image" HorizontalAlignment="Left"   VerticalAlignment="Top" />
+            </StackPanel>
+
+            <TextBlock Name="lblMsg" FontSize="14.667" Text="output" TextWrapping="Wrap" Margin="20 0 0 0" />
+         
+        </StackPanel>
+     
+    </Grid>
+
+</Page>
