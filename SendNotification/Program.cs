@@ -13,31 +13,31 @@ namespace SendNotification
         private const string clientSecret = "lw6IVYDiA7R3ZJuJCyw8AmljgStCFSMi";
         static void Main(string[] args)
         {
-           
-            //while (true)
-            //{
-            //    string action = "";
-            //    Console.WriteLine("Please input the team new thread belong to:" );
-            //    string name = Console.ReadLine();
-            //    Console.WriteLine("Please input the message you want to notify:");
-            //    string message = Console.ReadLine();
-            //    //Console.WriteLine("Need action? yes or no");
-            //    //string action = Console.ReadLine();               
-            //    SendNotificationAsync(message,name,action);               
-            //    Console.WriteLine("Please input 'q' to exit"); 
-            //    string exit = Console.ReadLine();
-            //    if (exit == "q")
-            //    {
-            //      Environment.Exit(0);
-            //    }        
-            //}
-            
+
+            while (true)
+            {
+                string action = "";
+                Console.WriteLine("Please input the team new thread belong to:");
+                string name = Console.ReadLine();
+                Console.WriteLine("Please input the message you want to notify:");
+                string message = Console.ReadLine();
+                //Console.WriteLine("Need action? yes or no");
+                //string action = Console.ReadLine();               
+                SendNotificationAsync(message, name, action);
+                Console.WriteLine("Please input 'q' to exit");
+                string exit = Console.ReadLine();
+                if (exit == "q")
+                {
+                    Environment.Exit(0);
+                }
+            }
+
         }
         private static async void SendNotificationAsync(string message,string name,string action)
         {
             action = "no";
             NotificationHubClient hub = NotificationHubClient
-                .CreateClientFromConnectionString("Endpoint=sb://jamobilehub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=nST5ysIRWqwR8X55dsAiUDvbMgcsjNJ7Jgyl7W5iSD0=", "uwpstart");
+                .CreateClientFromConnectionString("Endpoint=sb://todolisthub2-ns.servicebus.chinacloudapi.cn/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=O7SKd8AFVEKF+Cvjb+wqCnCPO0QznFKe6YfZoTyS6+c=", "uwptest");
              string id=await hub.CreateRegistrationIdAsync();
 
 

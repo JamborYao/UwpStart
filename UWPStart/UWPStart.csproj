@@ -180,6 +180,9 @@
     <Compile Include="Tool\CopyPast.xaml.cs">
       <DependentUpon>CopyPast.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tool\ParseCloud.xaml.cs">
+      <DependentUpon>ParseCloud.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\ItemUserControl.xaml.cs">
       <DependentUpon>ItemUserControl.xaml</DependentUpon>
@@ -284,6 +287,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tool\CopyPast.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\ParseCloud.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

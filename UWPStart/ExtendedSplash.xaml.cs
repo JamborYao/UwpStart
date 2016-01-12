@@ -81,7 +81,7 @@ namespace UWPStart
         void DismissExtendedSplash()
         {
             // Navigate to mainpage
-            rootFrame.Navigate(typeof(Tool.CopyPast)); 
+            rootFrame.Navigate(typeof(Communicate.Socket.TcpDemo)); 
             // Place the frame in the current Window
             Window.Current.Content = rootFrame;
         }

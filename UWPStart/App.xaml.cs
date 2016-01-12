@@ -165,7 +165,7 @@ namespace UWPStart
 
 
         //    Debugger.Break();
-            var hub = new NotificationHub("uwpstart", "Endpoint=sb://jamobilehub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=Lcai4r4yWy6SGWhqcfCjlhkRrK0RKL5bjM8HjD63KBA=");
+            var hub = new NotificationHub("uwptest", "Endpoint=sb://todolisthub2-ns.servicebus.chinacloudapi.cn/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=CtIr3BF/MRRzWO8SA12GZ3bfpERLyBnAUhcONm3W70E=");
             var tags = new string[2];
             tags[0] = "MSDN";
             tags[1] = "movies";

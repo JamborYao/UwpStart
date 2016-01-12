@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
+
 using Windows.Networking;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
@@ -22,6 +23,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.Graphics.Imaging;
+using System.Threading.Tasks;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -50,22 +52,63 @@ namespace UWPStart.Communicate.Socket
             this.InitializeComponent();
 
             WriteBitmap();
-
+            Exe();
 
         }
+        public async void Exe()
+        {
+            await base64stringToDib("1");
+        }
+        internal async Task<string> base64stringToDib(string value)
+        {
+            try
+            {
+                if (value == null)
+                    return "IntPtr.Zero1";
+                value = "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";
 
+                var buffer = System.Convert.FromBase64String(value);
+                try
+                {
+                    //await Window.Current.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                    //    {
+                    using (InMemoryRandomAccessStream ms = new InMemoryRandomAccessStream())
+                    {
+
+                        using (DataWriter writer = new DataWriter(ms.GetOutputStreamAt(0)))
+                        {
+                            writer.WriteBytes(buffer);
+                            await writer.StoreAsync();
+                            var image = new BitmapImage();
+                            image.SetSource(ms);
+                        }
+                    }
+                    //});
+                    return "iRet";
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
         public async void WriteBitmap()
         {
             var renderTargetBitmap = new RenderTargetBitmap();
             var scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
             scaleFactor = 2.5;
-            int widthSize = (int)(310 / scaleFactor);
-            int heightSize = (int)(102 / scaleFactor);
-            await renderTargetBitmap.RenderAsync(imageInnerGrid, widthSize, heightSize);
+            int widthSize = (int)(3100 / scaleFactor);
+            int heightSize = (int)(1020 / scaleFactor);
+            await renderTargetBitmap.RenderAsync(imageInnerGrid, widthSize/10, heightSize/10);
 
             var buffer = await renderTargetBitmap.GetPixelsAsync();
             byte[] pixels = buffer.ToArray();
             var writeableBitmap = new WriteableBitmap(renderTargetBitmap.PixelWidth, renderTargetBitmap.PixelHeight);
+            //writeableBitmap.rez
             using (Stream stream = writeableBitmap.PixelBuffer.AsStream())
             {
                 await stream.WriteAsync(pixels, 0, pixels.Length);
